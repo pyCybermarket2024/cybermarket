@@ -4,10 +4,9 @@ from server.config.setting import engine, Base, session
 
 class Client(Base):
     '''
-        Client class, corresponds the table Client in
-        %database%/cybermarket.db/Client
+        Client class, corresponds the table client in database
     '''
-    __tablename__ = 'Client'
+    __tablename__ = 'client'
     clientId = Column(Integer, primary_key=True)
     username = Column(String)
     email = Column(String)
@@ -18,7 +17,6 @@ class Client(Base):
         return f'''
             username: {self.username}
             email: {self.email}
-            password: {self.password}
         '''
 
     def get_username(self):
