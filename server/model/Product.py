@@ -48,6 +48,10 @@ class Product(Base):
         self.stock += quantity
         session.commit()
 
+    def purchase(self, quantity):
+        self.stock -= quantity
+        session.commit()
+
 
 # Create the corresponding Tabel in database
 Base.metadata.create_all(engine)
