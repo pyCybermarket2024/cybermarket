@@ -10,7 +10,8 @@ class Invitation(Base):
         where save all of the invitation codes.
     '''
     __tablename__ = 'invitation'
-    merchantname = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    merchantname = Column(String)
     code = Column(String)
 
     # Override the repr, when calling Client item

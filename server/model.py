@@ -9,7 +9,7 @@ class Client(Base):
     '''
     __tablename__ = 'client'
     clientId = Column(Integer, primary_key=True)
-    username = Column(String)
+    username = Column(String, unique=True)
     email = Column(String)
     password = Column(String)
     order = relationship("Order", backref="client")
@@ -166,6 +166,7 @@ class Product(Base):
 
     def purchase(self, quantity):
         self.stock -= quantity
+        self.merchant.profit += self.price*quantity
         session.commit()
 
 
@@ -175,10 +176,11 @@ class Merchant(Base):
     '''
     __tablename__ = 'merchant'
     merchantId = Column(Integer, primary_key=True)
-    storename = Column(String)
+    storename = Column(String, unique=True)
     description = Column(String)
     email = Column(String)
     password = Column(String)
+    profit = Column(Float, default=0.0)
     product = relationship("Product", backref="merchant")
 
     # Override the repr, when calling Client item
@@ -187,6 +189,7 @@ class Merchant(Base):
             storename: {self.storename}
             description: {self.description}
             email: {self.email}
+            profit: {self.profit}
         '''
 
     def get_storename(self):
