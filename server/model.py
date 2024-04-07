@@ -12,6 +12,7 @@ class Client(Base):
     username = Column(String, unique=True)
     email = Column(String)
     password = Column(String)
+    connected_address = Column(String, default=None)
     order = relationship("Order", backref="client")
 
     # Override the repr, when calling Client item
@@ -44,6 +45,15 @@ class Client(Base):
             session.commit()
             return True
         return False
+
+    def client_login(self, password, connect):
+        if self.verify_password(password):
+            self.connected_address = connect
+            session.commit()
+
+    def client_logout(self):
+        self.connected_address = None
+        session.commit()
 
     def add_item(self, product_id, quantity):
         new_item = Order(
@@ -180,6 +190,7 @@ class Merchant(Base):
     description = Column(String)
     email = Column(String)
     password = Column(String)
+    connected_address = Column(String, default=None)
     profit = Column(Float, default=0.0)
     product = relationship("Product", backref="merchant")
 
@@ -222,6 +233,15 @@ class Merchant(Base):
             session.commit()
             return True
         return False
+
+    def merchant_login(self, password, connect):
+        if self.verify_password(password):
+            self.connected_address = connect
+            session.commit()
+
+    def merchant_logout(self):
+        self.connected_address = None
+        session.commit()
 
     def get_product_list(self):
         '''
