@@ -46,9 +46,9 @@ class Client(Base):
             return True
         return False
 
-    def client_login(self, password, connect):
+    def client_login(self, password, connected_address):
         if self.verify_password(password):
-            self.connected_address = connect
+            self.connected_address = connected_address
             session.commit()
 
     def client_logout(self):
@@ -56,13 +56,20 @@ class Client(Base):
         session.commit()
 
     def add_item(self, product_id, quantity):
-        new_item = Order(
-            client_id=self.clientId,
-            quantity=quantity,
-            product_id=product_id
-            )
-        session.add(new_item)
-        session.commit()
+        result = session.query(Order).filter(
+            Order.product_id == product_id
+            ).first()
+        if result:
+            result.quantity += quantity
+            session.commit()
+        else:
+            new_item = Order(
+                client_id=self.clientId,
+                quantity=quantity,
+                product_id=product_id
+                )
+            session.add(new_item)
+            session.commit()
 
     def remove_item(self, product_id):
         result = session.query(Order).filter(
@@ -71,7 +78,7 @@ class Client(Base):
         session.delete(result)
         session.commit()
 
-    def get_item(self):
+    def get_items(self):
         '''
             return all items in the basket
         '''

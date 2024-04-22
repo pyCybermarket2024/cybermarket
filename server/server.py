@@ -25,6 +25,7 @@ async def handle_client(reader, writer):
                 send = asyncio.create_task(reader.readline())
                 # Decode the request type and request id
                 message = request.result().decode().strip()
+                args = []
                 cmd, request_id, *args = message.split(' ')
                 # Pass parameters to the request processing function
                 # Wait for processing to complete

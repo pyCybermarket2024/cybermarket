@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # Establish database connection
-engine = create_engine('sqlite:///database/cybermarket.db', echo=True)
+engine = create_engine('sqlite:///database/cybermarket.db', echo=False)
 
 # Define the base class that maps database tables and python classes
 Base = declarative_base()
