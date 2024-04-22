@@ -184,6 +184,25 @@ async def client_checkout_item(request_id, connected_address, output, *args):
         await output.put([repeat])
 
 
+async def list_merchant(request_id, connected_address, output, *args):
+    result = session.query(Merchant).all()
+    repeat = str(request_id) + " 200 OK"
+    await output.put([repeat, result])
+
+
+async def list_product(request_id, connected_address, output, *args):
+    result = session.query(Merchant).filter(
+        Merchant.storename == args[0]).first()
+    if result:
+        msg = "Product list has been obtained"
+        repeat = str(request_id) + " 200 OK: " + msg
+        await output.put([repeat, result.get_product_list()])
+    else:
+        msg = "No store with this name found"
+        repeat = str(request_id) + " 404 Not Found: " + msg
+        await output.put([repeat])
+
+
 # async def list_user(request_id, connected_address, output, *args):
 #     result = session.query(Client).all()
 #     msg = str(request_id) + " 200 OK"
