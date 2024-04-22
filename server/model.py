@@ -57,6 +57,7 @@ class Client(Base):
 
     def add_item(self, product_id, quantity):
         result = session.query(Order).filter(
+            Order.client_id == self.clientId,
             Order.product_id == product_id
             ).first()
         if result:
@@ -73,6 +74,7 @@ class Client(Base):
 
     def remove_item(self, product_id):
         result = session.query(Order).filter(
+            Order.client_id == self.clientId,
             Order.product_id == product_id
             ).first()
         session.delete(result)
@@ -83,13 +85,17 @@ class Client(Base):
             return all items in the basket
         '''
         result = session.query(
-            Order.product.merchant.storename,
-            Order.product.productname,
-            Order.product.price,
+            Merchant.storename,
+            Product.productname,
+            Product.price,
             Order.quantity
+            ).join(
+                Product, Order.product_id == Product.productId
+            ).join(
+                Merchant, Product.merchant_id == Merchant.merchantId
             ).filter(
-            Order.client_id == self.clientId
-            )
+                Order.client_id == self.clientId
+            ).all()
         return result
 
     def get_price(self):
@@ -97,7 +103,7 @@ class Client(Base):
             calculate the sum price of all all items in the basket
         '''
         sum_price = 0
-        item_list = self.get_item()
+        item_list = self.get_items()
         for item in item_list:
             sum_price += item[2]*item[3]
         return sum_price
@@ -108,6 +114,8 @@ class Client(Base):
         '''
         for item in self.order:
             item.checkout()
+            session.delete(item)
+            session.commit()
 
 
 class Order(Base):
@@ -120,6 +128,9 @@ class Order(Base):
     product_id = Column(Integer, ForeignKey('product.productId'))
     quantity = Column(Integer)
     product = relationship("Product")
+
+    def __repr__(self):
+        return str([self.id, self.client_id, self.product_id, self.quantity])
 
     def set_quantity(self, new_quantity):
         self.quantity = new_quantity

@@ -175,6 +175,7 @@ async def client_checkout_item(request_id, connected_address, output, *args):
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
+        result.checkout_item()
         msg = "Order has been checked out"
         repeat = str(request_id) + " 200 OK: " + msg
         await output.put([repeat])
@@ -203,12 +204,6 @@ async def list_product(request_id, connected_address, output, *args):
         await output.put([repeat])
 
 
-# async def list_user(request_id, connected_address, output, *args):
-#     result = session.query(Client).all()
-#     msg = str(request_id) + " 200 OK"
-#     await output.put([msg, result])
-
-
 function_dict = {
     "USER_CREATE": user_create,
     "CLIENT_LOGIN": client_login,
@@ -220,7 +215,9 @@ function_dict = {
     "CLIENT_REMOVE_ITEM": client_remove_item,
     "CLIENT_GET_ITEMS": client_get_items,
     "CLIENT_GET_PRICE": client_get_price,
-    "CLIENT_CHECKOUT_ITEM": client_checkout_item
+    "CLIENT_CHECKOUT_ITEM": client_checkout_item,
+    "LIST_MERCHANT": list_merchant,
+    "LIST_PRODUCT": list_product,
 }
 
 
