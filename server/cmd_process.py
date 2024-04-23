@@ -1,4 +1,5 @@
 from model import Merchant, Client, Order, Product
+from model import InventoryShortage
 from setting import session
 
 
@@ -209,10 +210,15 @@ async def client_checkout_item(request_id, connected_address, output, *args):
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
-        result.checkout_item()
-        msg = "Order has been checked out"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        try:
+            result.checkout_item()
+            msg = "Order has been checked out"
+            repeat = str(request_id) + " 200 OK: " + msg
+            await output.put([repeat])
+        except InventoryShortage as error:
+            msg = str(error)
+            repeat = str(request_id) + " 400 Bad Request: " + msg
+            await output.put([repeat])
     else:
         msg = "You have not logged in or your login has timed out"
         repeat = str(request_id) + " 401 Unauthorized: " + msg

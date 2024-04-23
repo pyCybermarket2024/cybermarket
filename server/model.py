@@ -3,6 +3,38 @@ from setting import engine, Base, session
 from sqlalchemy.orm import relationship
 
 
+class InventoryShortage(Exception):
+    """
+    The `InventoryShortage` class is a custom exception class that inherits
+    from the built-in `Exception` class in Python. It is designed to be raised
+    when there is a shortage of inventory in a system that requires a specific
+    quantity of items.
+
+    Attributes:
+        message (str): A string describing the shortage situation.
+
+    Methods:
+        __init__(self, message):
+            The constructor for the `InventoryShortage` class.
+            It takes a single argument, `message`, which is a string
+            that describes the shortage situation. This message is then stored
+            in the instance attribute `message`.
+
+        __str__(self):
+            The string representation method for the `InventoryShortage` class.
+            It returns the `message` attribute, allowing the exception
+            to be printed directly or converted to a string,
+            which will display the message describing the inventory shortage.
+
+    """
+    def __init__(self, message):
+        super().__init__()
+        self.message = message
+
+    def __str__(self):
+        return self.message
+
+
 class Client(Base):
     '''
     Client class, corresponds to the 'client' table in the database.
@@ -172,9 +204,19 @@ class Client(Base):
         Checks out all items in the client's basket, finalizing the order.
         '''
         for item in self.order:
-            item.checkout()
-            session.delete(item)
-            session.commit()
+            if item.quantity < item.product.stock:
+                item.checkout()
+                session.delete(item)
+                session.commit()
+            else:
+                raise InventoryShortage(
+                    "Inventory shortage for product "
+                    + "{} from merchant {},".format(
+                        item.product.productname,
+                        item.product.merchant.storename
+                        )
+                    + " checkout was not fully executed "
+                    + "and this item is still in your cart")
 
 
 class Order(Base):
