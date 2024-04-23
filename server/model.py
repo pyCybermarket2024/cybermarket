@@ -5,7 +5,16 @@ from sqlalchemy.orm import relationship
 
 class Client(Base):
     '''
-        Client class, corresponds the table client in database
+    Client class, corresponds to the 'client' table in the database.
+
+    Contains fields such as client ID, username, email, password,
+    connected address, etc.
+
+    Associated with the Order class through a relationship.
+
+    Provides methods for getting and setting usernames, emails, passwords,
+    as well as methods for login, logout, adding products, removing products,
+    retrieving product lists, calculating prices, and checking out.
     '''
     __tablename__ = 'client'
     clientId = Column(Integer, primary_key=True)
@@ -15,7 +24,6 @@ class Client(Base):
     connected_address = Column(String, default=None)
     order = relationship("Order", backref="client")
 
-    # Override the repr, when calling Client item
     def __repr__(self):
         return f'''
             username: {self.username}
@@ -37,9 +45,29 @@ class Client(Base):
         session.commit()
 
     def verify_password(self, password):
+        '''
+        Verifies the provided password against the client's stored password.
+
+        Parameters:
+            password (str): The password to verify.
+
+        Returns:
+            bool: True if the password matches, False otherwise.
+        '''
         return self.password == password
 
     def set_password(self, new_password, old_password):
+        '''
+        Sets a new password for the client after verifying the old password.
+
+        Parameters:
+            new_password (str): The new password to set.
+            old_password (str): The current password for verification.
+
+        Returns:
+            bool: True if the password was successfully changed,
+            False otherwise.
+        '''
         if self.password == old_password:
             self.password = new_password
             session.commit()
@@ -47,15 +75,34 @@ class Client(Base):
         return False
 
     def client_login(self, password, connected_address):
+        '''
+        Logs the client in by setting their connected address,
+        after verifying their password.
+
+        Parameters:
+            password (str): The client's password for verification.
+            connected_address (str): The address to set as connected.
+        '''
         if self.verify_password(password):
             self.connected_address = connected_address
             session.commit()
 
     def client_logout(self):
+        '''
+        Logs the client out by clearing their connected address.
+        '''
         self.connected_address = None
         session.commit()
 
     def add_item(self, product_id, quantity):
+        '''
+        Adds a specified quantity of a product to the client's order.
+        If the product is already in the order, increases the quantity.
+
+        Parameters:
+            product_id (int): The ID of the product to add.
+            quantity (int): The quantity of the product to add.
+        '''
         result = session.query(Order).filter(
             Order.client_id == self.clientId,
             Order.product_id == product_id
@@ -73,6 +120,12 @@ class Client(Base):
             session.commit()
 
     def remove_item(self, product_id):
+        '''
+        Removes a product from the client's order.
+
+        Parameters:
+            product_id (int): The ID of the product to remove.
+        '''
         result = session.query(Order).filter(
             Order.client_id == self.clientId,
             Order.product_id == product_id
@@ -82,7 +135,11 @@ class Client(Base):
 
     def get_items(self):
         '''
-            return all items in the basket
+        Retrieves all items in the client's basket.
+
+        Returns:
+            list: A list of tuples containing store name, product name, price,
+            and quantity of each item.
         '''
         result = session.query(
             Merchant.storename,
@@ -100,7 +157,9 @@ class Client(Base):
 
     def get_price(self):
         '''
-            calculate the sum price of all all items in the basket
+        Calculates the total price of all items in the client's basket.
+        Returns:
+            float: The total price of the items.
         '''
         sum_price = 0
         item_list = self.get_items()
@@ -110,7 +169,7 @@ class Client(Base):
 
     def checkout_item(self):
         '''
-            checkout all items in the basket
+        Checks out all items in the client's basket, finalizing the order.
         '''
         for item in self.order:
             item.checkout()
@@ -120,7 +179,14 @@ class Client(Base):
 
 class Order(Base):
     '''
-        Order class, corresponds the order product in database
+    Order class, corresponds to the 'order' table in the database.
+
+    Contains fields such as order ID, client ID, product ID, quantity, etc.
+
+    Associated with the Product class through a relationship.
+
+    Provides methods for setting and getting quantities,
+    as well as a method for checking out the current item.
     '''
     __tablename__ = 'order'
     id = Column(Integer, primary_key=True)
@@ -128,9 +194,6 @@ class Order(Base):
     product_id = Column(Integer, ForeignKey('product.productId'))
     quantity = Column(Integer)
     product = relationship("Product")
-
-    def __repr__(self):
-        return str([self.id, self.client_id, self.product_id, self.quantity])
 
     def set_quantity(self, new_quantity):
         self.quantity = new_quantity
@@ -141,14 +204,21 @@ class Order(Base):
 
     def checkout(self):
         '''
-            To checkout the current item
+        Checks out the current item, calling the purchase method of
+        the Product class to proceed with the purchase.
         '''
         self.product.purchase(self.quantity)
 
 
 class Product(Base):
     '''
-        Product class, corresponds the table product in database
+    Product class, corresponds to the 'product' table in the database.
+
+    Contains fields such as product ID, product name, price, stock,
+    description, merchant ID, etc.
+
+    Provides methods for getting and setting product names, prices,
+    descriptions, as well as methods for restocking and purchasing.
     '''
     __tablename__ = 'product'
     productId = Column(Integer, primary_key=True)
@@ -158,7 +228,6 @@ class Product(Base):
     description = Column(String)
     merchant_id = Column(Integer, ForeignKey('merchant.merchantId'))
 
-    # Override the repr, when calling Client item
     def __repr__(self):
         return f'''
             productname: {self.productname}
@@ -189,10 +258,24 @@ class Product(Base):
         session.commit()
 
     def restock(self, quantity):
+        '''
+        Restocks the product by adding the specified quantity to the current
+        stock.
+
+        Parameters:
+            quantity (int): The quantity to be added to the stock.
+        '''
         self.stock += quantity
         session.commit()
 
     def purchase(self, quantity):
+        '''
+        Processes the purchase of the specified quantity of the product,
+        reducing the stock and increasing the merchant's profit accordingly.
+
+        Parameters:
+            quantity (int): The quantity of the product to be purchased.
+        '''
         self.stock -= quantity
         self.merchant.profit += self.price*quantity
         session.commit()
@@ -200,7 +283,16 @@ class Product(Base):
 
 class Merchant(Base):
     '''
-        Merchant class, corresponds the table merchant in database
+    Merchant class, corresponds to the 'merchant' table in the database.
+
+    Contains fields such as merchant ID, store name, description, email,
+    password, connected address, profit, etc.
+
+    Associated with the Product class through a relationship.
+
+    Provides methods for getting and setting store names, descriptions, emails,
+    passwords, as well as methods for login, logout, retrieving product lists,
+    adding products, and deleting products.
     '''
     __tablename__ = 'merchant'
     merchantId = Column(Integer, primary_key=True)
@@ -212,7 +304,6 @@ class Merchant(Base):
     profit = Column(Float, default=0.0)
     product = relationship("Product", backref="merchant")
 
-    # Override the repr, when calling Client item
     def __repr__(self):
         return f'''
             storename: {self.storename}
@@ -243,9 +334,29 @@ class Merchant(Base):
         session.commit()
 
     def verify_password(self, password):
+        '''
+        Verifies the provided password against the merchant's stored password.
+
+        Parameters:
+            password (str): The password to verify.
+
+        Returns:
+            bool: True if the password matches, False otherwise.
+        '''
         return self.password == password
 
     def set_password(self, new_password, old_password):
+        '''
+        Sets a new password for the merchant after verifying the old password.
+
+        Parameters:
+            new_password (str): The new password to set.
+            old_password (str): The current password for verification.
+
+        Returns:
+            bool: True if the password was successfully changed,
+            False otherwise.
+        '''
         if self.password == old_password:
             self.password = new_password
             session.commit()
@@ -253,23 +364,42 @@ class Merchant(Base):
         return False
 
     def merchant_login(self, password, connect):
+        '''
+        Logs the merchant in by setting their connected address,
+        after verifying their password.
+
+        Parameters:
+            password (str): The merchant's password for verification.
+            connected_address (str): The address to set as connected.
+        '''
         if self.verify_password(password):
             self.connected_address = connect
             session.commit()
 
     def merchant_logout(self):
+        '''
+        Logs the merchant out by clearing their connected address.
+        '''
         self.connected_address = None
         session.commit()
 
     def get_product_list(self):
         '''
-            return a list of products of this merchant
+        Retrieves a list of products associated with this merchant.
+
+        Returns:
+            list: A list of Product objects.
         '''
         return self.product
 
     def add_product(self, productname, price, description):
         '''
-            create a new product in table product
+        Creates a new product in the 'product' table.
+
+        Parameters:
+            productname (str): The name of the new product.
+            price (float): The price of the new product.
+            description (str): The description of the new product.
         '''
         new_product = Product(
             productname=productname,
@@ -283,13 +413,16 @@ class Merchant(Base):
 
     def del_product(self, id):
         '''
-            delete a product by its id in table product
+        Deletes a product by its ID from the 'product' table.
+
+        Parameters:
+            product_id (int): The ID of the product to delete.
         '''
         result = session.query(Product).filter(Product.productId == id).first()
         session.delete(result)
         session.commit()
 
 
+# Create the corresponding Tabel in database
 Base.metadata.create_all(engine)
 session.close()
-# Create the corresponding Tabel in database

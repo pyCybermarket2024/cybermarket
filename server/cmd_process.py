@@ -3,6 +3,9 @@ from setting import session
 
 
 async def user_create(request_id, connected_address, output, *args):
+    '''
+    Creates a new user with the provided username, email, and password.
+    '''
     if session.query(Client).filter(Client.username == args[0]).first():
         msg = "This username is occupied"
         repeat = str(request_id) + " 409 Conflict:  " + msg
@@ -16,6 +19,9 @@ async def user_create(request_id, connected_address, output, *args):
 
 
 async def set_client_username(request_id, connected_address, output, *args):
+    '''
+    Sets the username for the logged-in client.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -30,6 +36,9 @@ async def set_client_username(request_id, connected_address, output, *args):
 
 
 async def set_client_email(request_id, connected_address, output, *args):
+    '''
+    Sets the email for the logged-in client.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -44,6 +53,10 @@ async def set_client_email(request_id, connected_address, output, *args):
 
 
 async def set_client_password(request_id, connected_address, output, *args):
+    '''
+    Sets a new password for the logged-in client after verifying the old
+    password.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -63,6 +76,9 @@ async def set_client_password(request_id, connected_address, output, *args):
 
 
 async def client_login(request_id, connected_address, output, *args):
+    '''
+    Logs in the client with the provided username and password.
+    '''
     result = session.query(Client).filter(Client.username == args[0]).first()
     login_status = session.query(Client.connected_address).filter(
         Client.connected_address == connected_address).first()
@@ -87,6 +103,9 @@ async def client_login(request_id, connected_address, output, *args):
 
 
 async def client_logout(request_id, connected_address, output, *args):
+    '''
+    Logs out the client.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -101,6 +120,9 @@ async def client_logout(request_id, connected_address, output, *args):
 
 
 async def client_add_item(request_id, connected_address, output, *args):
+    '''
+    Adds an item to the client's shopping cart.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     product = session.query(Product).filter(
@@ -125,6 +147,9 @@ async def client_add_item(request_id, connected_address, output, *args):
 
 
 async def client_remove_item(request_id, connected_address, output, *args):
+    '''
+    Removes an item from the client's shopping cart.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     product = session.query(Order).filter(
@@ -146,6 +171,9 @@ async def client_remove_item(request_id, connected_address, output, *args):
 
 
 async def client_get_items(request_id, connected_address, output, *args):
+    '''
+    Retrieves the list of items in the client's shopping cart.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -159,6 +187,9 @@ async def client_get_items(request_id, connected_address, output, *args):
 
 
 async def client_get_price(request_id, connected_address, output, *args):
+    '''
+    Calculates the total price of the items in the client's shopping cart.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -172,6 +203,9 @@ async def client_get_price(request_id, connected_address, output, *args):
 
 
 async def client_checkout_item(request_id, connected_address, output, *args):
+    '''
+    Checks out the items in the client's shopping cart.
+    '''
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -186,12 +220,19 @@ async def client_checkout_item(request_id, connected_address, output, *args):
 
 
 async def list_merchant(request_id, connected_address, output, *args):
+    '''
+    Retrieves a list of all merchants from the database.
+    '''
     result = session.query(Merchant).all()
     repeat = str(request_id) + " 200 OK"
     await output.put([repeat, result])
 
 
 async def list_product(request_id, connected_address, output, *args):
+    '''
+    Retrieves a list of products from a specific merchant identified
+    by the store name.
+    '''
     result = session.query(Merchant).filter(
         Merchant.storename == args[0]).first()
     if result:
