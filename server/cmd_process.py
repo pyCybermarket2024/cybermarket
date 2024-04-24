@@ -116,7 +116,7 @@ async def set_client_password(request_id, connected_address, output, *args):
 
 
 async def client_login(request_id, connected_address, output, *args):
-    '''
+    """
     Logs in a client if the credentials are correct and the client
     is not already logged in.
 
@@ -129,7 +129,7 @@ async def client_login(request_id, connected_address, output, *args):
 
     Reply:
         [reply_message]
-    '''
+    """
     result = session.query(Client).filter(
         (Client.username == args[0]) | (Client.email == args[0])
         ).first()
@@ -156,7 +156,7 @@ async def client_login(request_id, connected_address, output, *args):
 
 
 async def client_logout(request_id, connected_address, output, *args):
-    '''
+    """
     Logs out a client if they are currently logged in.
 
     Args:
@@ -167,7 +167,7 @@ async def client_logout(request_id, connected_address, output, *args):
 
     Reply:
         [reply_message]
-    '''
+    """
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -182,9 +182,19 @@ async def client_logout(request_id, connected_address, output, *args):
 
 
 async def client_add_item(request_id, connected_address, output, *args):
-    '''
+    """
     Adds an item to the client's shopping cart.
-    '''
+
+    Args:
+        request_id (str), connected_address (str), output (asyncio.Queue):
+        Read the document of function cmd_process.cmd_process().
+        *args: Variable length argument list:
+            args[0]: The id of the product to add
+            args[1]: The quantity of the product to add
+
+    Reply:
+        [reply_message]
+    """
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     product = session.query(Product).filter(
@@ -209,9 +219,18 @@ async def client_add_item(request_id, connected_address, output, *args):
 
 
 async def client_remove_item(request_id, connected_address, output, *args):
-    '''
+    """
     Removes an item from the client's shopping cart.
-    '''
+
+    Args:
+        request_id (str), connected_address (str), output (asyncio.Queue):
+        Read the document of function cmd_process.cmd_process().
+        *args: Variable length argument list:
+            args[0]: The id of the product to remove
+
+    Reply:
+        [reply_message]
+    """
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     product = session.query(Order).filter(
@@ -233,9 +252,19 @@ async def client_remove_item(request_id, connected_address, output, *args):
 
 
 async def client_get_items(request_id, connected_address, output, *args):
-    '''
+    """
     Retrieves the list of items in the client's shopping cart.
-    '''
+
+    Args:
+        request_id (str), connected_address (str), output (asyncio.Queue):
+        Read the document of function cmd_process.cmd_process().
+        *args: Variable length argument list: This function
+        do not require additional parameters
+
+    Reply:
+        [reply_message, item_list]
+        item_list: A list of all items in the shopping cart
+    """
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -249,9 +278,19 @@ async def client_get_items(request_id, connected_address, output, *args):
 
 
 async def client_get_price(request_id, connected_address, output, *args):
-    '''
+    """
     Calculates the total price of the items in the client's shopping cart.
-    '''
+
+    Args:
+        request_id (str), connected_address (str), output (asyncio.Queue):
+        Read the document of function cmd_process.cmd_process().
+        *args: Variable length argument list: This function
+        do not require additional parameters
+
+    Reply:
+        [reply_message, total_price]
+        total_price: The price all items in the shopping cart
+    """
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -265,9 +304,18 @@ async def client_get_price(request_id, connected_address, output, *args):
 
 
 async def client_checkout_item(request_id, connected_address, output, *args):
-    '''
+    """
     Checks out the items in the client's shopping cart.
-    '''
+
+    Args:
+        request_id (str), connected_address (str), output (asyncio.Queue):
+        Read the document of function cmd_process.cmd_process().
+        *args: Variable length argument list: This function
+        do not require additional parameters
+
+    Reply:
+        [reply_message]
+    """
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
@@ -287,19 +335,39 @@ async def client_checkout_item(request_id, connected_address, output, *args):
 
 
 async def list_merchant(request_id, connected_address, output, *args):
-    '''
+    """
     Retrieves a list of all merchants from the database.
-    '''
+
+    Args:
+        request_id (str), connected_address (str), output (asyncio.Queue):
+        Read the document of function cmd_process.cmd_process().
+        *args: Variable length argument list: This function
+        do not require additional parameters
+
+    Reply:
+        [reply_message, merchant_list]
+        merchant_list: list of all merchants
+    """
     result = session.query(Merchant).all()
     repeat = str(request_id) + " 200 OK"
     await output.put([repeat, result])
 
 
 async def list_product(request_id, connected_address, output, *args):
-    '''
+    """
     Retrieves a list of products from a specific merchant identified
     by the store name.
-    '''
+
+    Args:
+        request_id (str), connected_address (str), output (asyncio.Queue):
+        Read the document of function cmd_process.cmd_process().
+        *args: Variable length argument list:
+            args[0]: Storename of the merchant
+
+    Reply:
+        [reply_message, product_list]
+        product_list: A list of all products from the merchant
+    """
     result = session.query(Merchant).filter(
         Merchant.storename == args[0]).first()
     if result:
