@@ -49,7 +49,7 @@ def create_ivitation(merchantname):
         str: The generated invitation code.
     '''
     code = generate_random_string()
-    ivitation = Invitation(merchantname, code)
+    ivitation = Invitation(merchantname=merchantname, code=code)
     session.add(ivitation)
     session.commit()
     return code

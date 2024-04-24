@@ -272,10 +272,12 @@ class Product(Base):
 
     def __repr__(self):
         return f'''
+            product_id: {self.productId}
+            storename: {self.merchant.storename}
             productname: {self.productname}
+            description: {self.description}
             price: {self.price}
             stock: {self.stock}
-            description: {self.description}
         '''
 
     def get_productname(self):
@@ -351,7 +353,6 @@ class Merchant(Base):
             storename: {self.storename}
             description: {self.description}
             email: {self.email}
-            profit: {self.profit}
         '''
 
     def get_storename(self):
@@ -374,6 +375,9 @@ class Merchant(Base):
     def set_email(self, new_email):
         self.email = new_email
         session.commit()
+
+    def get_profit(self):
+        return self.profit
 
     def verify_password(self, password):
         '''
