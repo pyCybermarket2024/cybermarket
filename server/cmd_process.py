@@ -1,3 +1,4 @@
+"""Accept commands from server.py and output the results to the queue."""
 from model import Merchant, Client, Order, Product
 from model import InventoryShortage
 from invitation import create_ivitation, check_ivitation
@@ -6,7 +7,7 @@ from setting import session
 
 async def client_create(request_id, connected_address, output, *args):
     """
-    Creates a new client with the provided username, email, and password.
+    Create a new client with the provided username, email, and password.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -33,7 +34,7 @@ async def client_create(request_id, connected_address, output, *args):
 
 async def set_client_username(request_id, connected_address, output, *args):
     """
-    Sets the username for a logged-in client.
+    Set the username for a logged-in client.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -59,7 +60,7 @@ async def set_client_username(request_id, connected_address, output, *args):
 
 async def set_client_email(request_id, connected_address, output, *args):
     """
-    Sets the email for a logged-in client.
+    Set the email for a logged-in client.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -85,7 +86,7 @@ async def set_client_email(request_id, connected_address, output, *args):
 
 async def set_client_password(request_id, connected_address, output, *args):
     """
-    Sets a new password for the client if the current password is verified.
+    Set a new password for the client if the current password is verified.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -117,8 +118,7 @@ async def set_client_password(request_id, connected_address, output, *args):
 
 async def client_login(request_id, connected_address, output, *args):
     """
-    Logs in a client if the credentials are correct and the client
-    is not already logged in.
+    Log in a client if the credentials are correct.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -157,7 +157,7 @@ async def client_login(request_id, connected_address, output, *args):
 
 async def client_logout(request_id, connected_address, output, *args):
     """
-    Logs out a client if they are currently logged in.
+    Log out a client if they are currently logged in.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -183,7 +183,7 @@ async def client_logout(request_id, connected_address, output, *args):
 
 async def client_add_item(request_id, connected_address, output, *args):
     """
-    Adds an item to the client's shopping cart.
+    Add an item to the client's shopping cart.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -220,7 +220,7 @@ async def client_add_item(request_id, connected_address, output, *args):
 
 async def client_remove_item(request_id, connected_address, output, *args):
     """
-    Removes an item from the client's shopping cart.
+    Remove an item from the client's shopping cart.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -253,7 +253,7 @@ async def client_remove_item(request_id, connected_address, output, *args):
 
 async def client_get_items(request_id, connected_address, output, *args):
     """
-    Retrieves the list of items in the client's shopping cart.
+    Retrieve the list of items in the client's shopping cart.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -279,7 +279,7 @@ async def client_get_items(request_id, connected_address, output, *args):
 
 async def client_get_price(request_id, connected_address, output, *args):
     """
-    Calculates the total price of the items in the client's shopping cart.
+    Calculate the total price of the items in the client's shopping cart.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -305,7 +305,7 @@ async def client_get_price(request_id, connected_address, output, *args):
 
 async def client_checkout_item(request_id, connected_address, output, *args):
     """
-    Checks out the items in the client's shopping cart.
+    Check out the items in the client's shopping cart.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -336,7 +336,7 @@ async def client_checkout_item(request_id, connected_address, output, *args):
 
 async def list_merchant(request_id, connected_address, output, *args):
     """
-    Retrieves a list of all merchants from the database.
+    Retrieve a list of all merchants from the database.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -355,8 +355,7 @@ async def list_merchant(request_id, connected_address, output, *args):
 
 async def list_product(request_id, connected_address, output, *args):
     """
-    Retrieves a list of products from a specific merchant identified
-    by the store name.
+    Retrieve a list of products from merchant by the store name.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -383,7 +382,7 @@ async def list_product(request_id, connected_address, output, *args):
 async def merchant_create_ivitation(
         request_id, connected_address, output, *args):
     """
-    Generates an invitation code for a merchant if they are connected.
+    Generate an invitation code for a merchant if they are connected.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -409,8 +408,7 @@ async def merchant_create_ivitation(
 
 async def merchant_create(request_id, connected_address, output, *args):
     """
-    Creates a new merchant record if the invitation code is verified
-    and the store name is not occupied.
+    Create a new merchant record if the invitation code is verified.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -453,8 +451,7 @@ async def merchant_create(request_id, connected_address, output, *args):
 
 async def merchant_login(request_id, connected_address, output, *args):
     """
-    Logs in a merchant if the credentials are correct and the merchant
-    is not already logged in.
+    Log in a merchant if the credentials are correct.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -493,7 +490,7 @@ async def merchant_login(request_id, connected_address, output, *args):
 
 async def merchant_logout(request_id, connected_address, output, *args):
     """
-    Logs out a merchant if they are currently logged in.
+    Log out a merchant if they are currently logged in.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -519,7 +516,7 @@ async def merchant_logout(request_id, connected_address, output, *args):
 
 async def set_merchant_storename(request_id, connected_address, output, *args):
     """
-    Sets the store name for a logged-in merchant.
+    Set the store name for a logged-in merchant.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -545,7 +542,7 @@ async def set_merchant_storename(request_id, connected_address, output, *args):
 
 async def set_merchant_email(request_id, connected_address, output, *args):
     """
-    Sets the email for a logged-in merchant.
+    Set the email for a logged-in merchant.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -572,7 +569,7 @@ async def set_merchant_email(request_id, connected_address, output, *args):
 async def set_merchant_description(
         request_id, connected_address, output, *args):
     """
-    Sets the description for a logged-in merchant.
+    Set the description for a logged-in merchant.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -598,7 +595,7 @@ async def set_merchant_description(
 
 async def set_merchant_password(request_id, connected_address, output, *args):
     """
-    Sets a new password for the merchant if the current password is verified.
+    Set a new password for the merchant if the current password is verified.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -630,7 +627,7 @@ async def set_merchant_password(request_id, connected_address, output, *args):
 
 async def merchant_add_product(request_id, connected_address, output, *args):
     """
-    Adds a new product to the merchant's product list.
+    Add a new product to the merchant's product list.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -658,7 +655,7 @@ async def merchant_add_product(request_id, connected_address, output, *args):
 
 async def merchant_del_product(request_id, connected_address, output, *args):
     """
-    Deletes a product from the merchant's product list.
+    Delete a product from the merchant's product list.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -685,7 +682,7 @@ async def merchant_del_product(request_id, connected_address, output, *args):
 async def merchant_restock_product(
         request_id, connected_address, output, *args):
     """
-    Restocks a product in the merchant's inventory.
+    Restock a product in the merchant's inventory.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -720,7 +717,7 @@ async def merchant_restock_product(
 
 async def merchant_get_profit(request_id, connected_address, output, *args):
     """
-    Retrieves the total profit for the merchant.
+    Retrieve the total profit for the merchant.
 
     Args:
         request_id (str), connected_address (str), output (asyncio.Queue):
@@ -775,8 +772,7 @@ function_dict = {
 
 async def cmd_process(cmd, request_id, connected_address, output, *args):
     """
-    Process a command by executing the corresponding function from the
-    function dictionary.
+    Execute the corresponding function from the function dictionary.
 
     Parameters:
     - cmd (str): The command to be processed.

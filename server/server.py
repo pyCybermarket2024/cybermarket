@@ -1,3 +1,13 @@
+"""
+This module provides an asynchronous server for handling client requests.
+
+The server listens on a local port and asynchronously processes requests.
+It maintains a connection list and associated message handling queues.
+
+Functions:
+    handle_client(reader, writer): Asynchronously handle client connections.
+    main(): Start the server and listen for incoming connections.
+"""
 import asyncio
 from cmd_process import cmd_process
 
@@ -6,6 +16,16 @@ connect_list = {}
 
 # Run request handler asynchronously
 async def handle_client(reader, writer):
+    """
+    Asynchronously handle client connections.
+
+    This coroutine manages client connections, receives incoming requests,
+    and sends responses back to the client.
+
+    Args:
+        reader (StreamReader): The stream reader object.
+        writer (StreamWriter): The stream writer object.
+    """
     connect = "{}:{}".format(*writer.get_extra_info('peername'))
     # Bind the user's pending queue and connection address through a dictionary
     connect_list[connect] = asyncio.Queue()
@@ -46,6 +66,13 @@ async def handle_client(reader, writer):
 
 # Start service(handle_client) on local port 127.0.0.1:22333
 async def main():
+    """
+    Start the server and listen for incoming connections.
+
+    This coroutine sets up the server on a local port,
+    starts listening for incoming connections, and handles them
+    using the `handle_client` coroutine.
+    """
     server = await asyncio.start_server(handle_client, '127.0.0.1', 22333)
     print('Service started')
     async with server:
