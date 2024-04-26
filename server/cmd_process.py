@@ -10,12 +10,12 @@ async def client_create(request_id, connected_address, output, *args):
     Create a new client with the provided username, email, and password.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The username of new client
-            args[1]: The email of new client
-            args[2]: The password of new merchant
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The username of new client
+        args[1]: The email of new client
+        args[2]: The password of new merchant
 
     Reply:
         [reply_message]
@@ -37,10 +37,10 @@ async def set_client_username(request_id, connected_address, output, *args):
     Set the username for a logged-in client.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The new username of the client
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The new username of the client
 
     Reply:
         [reply_message]
@@ -63,10 +63,10 @@ async def set_client_email(request_id, connected_address, output, *args):
     Set the email for a logged-in client.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The new email of the client
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The new email of the client
 
     Reply:
         [reply_message]
@@ -89,11 +89,11 @@ async def set_client_password(request_id, connected_address, output, *args):
     Set a new password for the client if the current password is verified.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The new password.
-            args[1]: The current password for verification.
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The new password.
+        args[1]: The current password for verification.
 
     Reply:
         [reply_message]
@@ -121,11 +121,11 @@ async def client_login(request_id, connected_address, output, *args):
     Log in a client if the credentials are correct.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The storename or email of the client
-            args[1]: The password of the client
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The storename or email of the client
+        args[1]: The password of the client
 
     Reply:
         [reply_message]
@@ -160,10 +160,10 @@ async def client_logout(request_id, connected_address, output, *args):
     Log out a client if they are currently logged in.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list: This function
-        do not require additional parameters
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        *args: Variable length argument list: Do not require
 
     Reply:
         [reply_message]
@@ -186,11 +186,11 @@ async def client_add_item(request_id, connected_address, output, *args):
     Add an item to the client's shopping cart.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The id of the product to add
-            args[1]: The quantity of the product to add
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The id of the product to add
+        args[1]: The quantity of the product to add
 
     Reply:
         [reply_message]
@@ -223,10 +223,10 @@ async def client_remove_item(request_id, connected_address, output, *args):
     Remove an item from the client's shopping cart.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The id of the product to remove
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The id of the product to remove
 
     Reply:
         [reply_message]
@@ -256,10 +256,10 @@ async def client_get_items(request_id, connected_address, output, *args):
     Retrieve the list of items in the client's shopping cart.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list: This function
-        do not require additional parameters
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        *args: Variable length argument list: Do not require
 
     Reply:
         [reply_message, item_list]
@@ -282,10 +282,10 @@ async def client_get_price(request_id, connected_address, output, *args):
     Calculate the total price of the items in the client's shopping cart.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list: This function
-        do not require additional parameters
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        *args: Variable length argument list: Do not require
 
     Reply:
         [reply_message, total_price]
@@ -308,10 +308,10 @@ async def client_checkout_item(request_id, connected_address, output, *args):
     Check out the items in the client's shopping cart.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list: This function
-        do not require additional parameters
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        *args: Variable length argument list: Do not require
 
     Reply:
         [reply_message]
@@ -339,10 +339,10 @@ async def list_merchant(request_id, connected_address, output, *args):
     Retrieve a list of all merchants from the database.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list: This function
-        do not require additional parameters
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        *args: Variable length argument list: Do not require
 
     Reply:
         [reply_message, merchant_list]
@@ -358,10 +358,10 @@ async def list_product(request_id, connected_address, output, *args):
     Retrieve a list of products from merchant by the store name.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: Storename of the merchant
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: Storename of the merchant
 
     Reply:
         [reply_message, product_list]
@@ -385,10 +385,10 @@ async def merchant_create_ivitation(
     Generate an invitation code for a merchant if they are connected.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list: This function
-        do not require additional parameters
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        *args: Variable length argument list: Do not require
 
     Reply:
         [reply_message, invitation_code]
@@ -411,15 +411,15 @@ async def merchant_create(request_id, connected_address, output, *args):
     Create a new merchant record if the invitation code is verified.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The storename of new merchant
-            args[1]: The description of new merchant
-            args[2]: The email of new merchant
-            args[3]: The password of new merchant
-            args[4]: The storename of the store, who is inviting
-            args[5]: The invitation code
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The storename of new merchant
+        args[1]: The description of new merchant
+        args[2]: The email of new merchant
+        args[3]: The password of new merchant
+        args[4]: The storename of the store, who is inviting
+        args[5]: The invitation code
 
     Reply:
         [reply_message]
@@ -454,11 +454,11 @@ async def merchant_login(request_id, connected_address, output, *args):
     Log in a merchant if the credentials are correct.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The storename or email of the merchant
-            args[1]: The password of the merchant
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The storename or email of the merchant
+        args[1]: The password of the merchant
 
     Reply:
         [reply_message]
@@ -493,10 +493,10 @@ async def merchant_logout(request_id, connected_address, output, *args):
     Log out a merchant if they are currently logged in.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list: This function
-        do not require additional parameters
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        *args: Variable length argument list: Do not require
 
     Reply:
         [reply_message]
@@ -519,10 +519,10 @@ async def set_merchant_storename(request_id, connected_address, output, *args):
     Set the store name for a logged-in merchant.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The new storename of the merchant
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The new storename of the merchant
 
     Reply:
         [reply_message]
@@ -545,10 +545,10 @@ async def set_merchant_email(request_id, connected_address, output, *args):
     Set the email for a logged-in merchant.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The new email of the merchant
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The new email of the merchant
 
     Reply:
         [reply_message]
@@ -572,10 +572,10 @@ async def set_merchant_description(
     Set the description for a logged-in merchant.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The new description of the merchant
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The new description of the merchant
 
     Reply:
         [reply_message]
@@ -598,11 +598,11 @@ async def set_merchant_password(request_id, connected_address, output, *args):
     Set a new password for the merchant if the current password is verified.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The new password.
-            args[1]: The current password for verification.
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The new password.
+        args[1]: The current password for verification.
 
     Reply:
         [reply_message]
@@ -630,12 +630,12 @@ async def merchant_add_product(request_id, connected_address, output, *args):
     Add a new product to the merchant's product list.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The name of the new product.
-            args[1]: The price of the new product.
-            args[2]: The description of the new product.
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The name of the new product.
+        args[1]: The price of the new product.
+        args[2]: The description of the new product.
 
     Reply:
         [reply_message]
@@ -658,10 +658,10 @@ async def merchant_del_product(request_id, connected_address, output, *args):
     Delete a product from the merchant's product list.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The productId of the product to be deleted.
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The productId of the product to be deleted.
 
     Reply:
         [reply_message]
@@ -685,11 +685,11 @@ async def merchant_restock_product(
     Restock a product in the merchant's inventory.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list:
-            args[0]: The productId of the product to be restocked.
-            args[1]: Quantity of restocking product.
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args[0]: The productId of the product to be restocked.
+        args[1]: Quantity of restocking product.
 
     Reply:
         [reply_message]
@@ -720,10 +720,10 @@ async def merchant_get_profit(request_id, connected_address, output, *args):
     Retrieve the total profit for the merchant.
 
     Args:
-        request_id (str), connected_address (str), output (asyncio.Queue):
-        Read the document of function cmd_process.cmd_process().
-        *args: Variable length argument list: This function
-        do not require additional parameters
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        *args: Variable length argument list: Do not require
 
     Reply:
         [reply_message, total_profit]
@@ -775,11 +775,11 @@ async def cmd_process(cmd, request_id, connected_address, output, *args):
     Execute the corresponding function from the function dictionary.
 
     Parameters:
-    - cmd (str): The command to be processed.
-    - request_id (str): The unique identifier for the request.
-    - connected_address (str): The address of the client making the request.
-    - output (queue): The output queue where the response will be put.
-    - args: Additional arguments that may be required by the function.
+        cmd (str): The command to be processed.
+        request_id (str): The unique identifier for the request.
+        connected_address (str): The address of the client making the request.
+        output (queue): The output queue where the response will be put.
+        args: Additional arguments that may be required by the function.
 
     If the command is found in the function dictionary, the corresponding
     function is called with the provided arguments.
