@@ -6,44 +6,42 @@ from invitation import create_ivitation, check_ivitation
 from setting import session
 
 
-async def client_create(request_id, connected_address, output, *args):
+def client_create(request_id, connected_address, *args):
     """
     Create a new client with the provided username, email, and password.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The username of new client
         args[1]: The email of new client
         args[2]: The password of new merchant
 
-    Reply:
+    Return:
         [reply_message]
     """
     if session.query(Client).filter(Client.username == args[0]).first():
         msg = "This username is occupied"
-        repeat = str(request_id) + " 409 Conflict:  " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 409 Conflict:  " + msg
+        return [reply]
     else:
         client = Client(username=args[0], email=args[1], password=args[2])
         session.add(client)
         session.commit()
-        repeat = str(request_id) + " 201 Created"
-        await output.put([repeat])
+        reply = str(request_id) + " 201 Created"
+        return [reply]
 
 
-async def set_client_username(request_id, connected_address, output, *args):
+def set_client_username(request_id, connected_address, *args):
     """
     Set the username for a logged-in client.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The new username of the client
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Client).filter(
@@ -51,25 +49,24 @@ async def set_client_username(request_id, connected_address, output, *args):
     if result:
         result.set_username(args[0])
         msg = "Username has been set"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def set_client_email(request_id, connected_address, output, *args):
+def set_client_email(request_id, connected_address, *args):
     """
     Set the email for a logged-in client.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The new email of the client
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Client).filter(
@@ -77,26 +74,25 @@ async def set_client_email(request_id, connected_address, output, *args):
     if result:
         result.set_email(args[0])
         msg = "Email has been set"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def set_client_password(request_id, connected_address, output, *args):
+def set_client_password(request_id, connected_address, *args):
     """
     Set a new password for the client if the current password is verified.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The new password.
         args[1]: The current password for verification.
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Client).filter(
@@ -105,30 +101,29 @@ async def set_client_password(request_id, connected_address, output, *args):
         if result.verify_password(args[1]):
             result.set_password(args[0], args[1])
             msg = "New password has been set"
-            repeat = str(request_id) + " 200 OK: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 200 OK: " + msg
+            return [reply]
         else:
             msg = "The password of the user is incorrect"
-            repeat = str(request_id) + " 403 Forbidden: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 403 Forbidden: " + msg
+            return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def client_login(request_id, connected_address, output, *args):
+def client_login(request_id, connected_address, *args):
     """
     Log in a client if the credentials are correct.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The storename or email of the client
         args[1]: The password of the client
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Client).filter(
@@ -138,35 +133,34 @@ async def client_login(request_id, connected_address, output, *args):
         Client.connected_address == connected_address).first()
     if login_status:
         msg = "The user has been logged in, please do not log in again"
-        repeat = str(request_id) + " 400 Bad Request: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 400 Bad Request: " + msg
+        return [reply]
     elif result:
         if result.verify_password(args[1]):
             result.client_login(args[1], connected_address)
             msg = "This user is logged in"
-            repeat = str(request_id) + " 200 OK: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 200 OK: " + msg
+            return [reply]
         else:
             msg = "The password of the user is incorrect"
-            repeat = str(request_id) + " 403 Forbidden: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 403 Forbidden: " + msg
+            return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def client_logout(request_id, connected_address, output, *args):
+def client_logout(request_id, connected_address, *args):
     """
     Log out a client if they are currently logged in.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         *args: Variable length argument list: Do not require
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Client).filter(
@@ -174,26 +168,25 @@ async def client_logout(request_id, connected_address, output, *args):
     if result:
         result.client_logout()
         msg = "You have successfully logged out"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def client_add_item(request_id, connected_address, output, *args):
+def client_add_item(request_id, connected_address, *args):
     """
     Add an item to the client's shopping cart.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The id of the product to add
         args[1]: The quantity of the product to add
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Client).filter(
@@ -202,34 +195,33 @@ async def client_add_item(request_id, connected_address, output, *args):
         Product.productId == args[0]).first()
     if int(args[1]) <= 0:
         msg = "The quantity of added products should be a positive integer"
-        repeat = str(request_id) + " 400 Bad Request: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 400 Bad Request: " + msg
+        return [reply]
     elif not product:
         msg = "The product you are trying to add cannot be found"
-        repeat = str(request_id) + " 404 Not Found: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 404 Not Found: " + msg
+        return [reply]
     elif result:
         result.add_item(args[0], int(args[1]))
         msg = "This product has been added to the shopping cart"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def client_remove_item(request_id, connected_address, output, *args):
+def client_remove_item(request_id, connected_address, *args):
     """
     Remove an item from the client's shopping cart.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The id of the product to remove
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Client).filter(
@@ -239,30 +231,29 @@ async def client_remove_item(request_id, connected_address, output, *args):
             ).first()
     if not product:
         msg = "This product is not in your shopping cart"
-        repeat = str(request_id) + " 404 Not Found: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 404 Not Found: " + msg
+        return [reply]
     elif result:
         result.remove_item(args[0])
         msg = "This product has been removed from the shopping cart"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def client_get_items(request_id, connected_address, output, *args):
+def client_get_items(request_id, connected_address, *args):
     """
     Retrieve the list of items in the client's shopping cart.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         *args: Variable length argument list: Do not require
 
-    Reply:
+    Return:
         [reply_message, item_dataframe]
         item_dataframe (pd.Dataframe): Dataframe of items in the shopping cart
     """
@@ -270,27 +261,26 @@ async def client_get_items(request_id, connected_address, output, *args):
         Client.connected_address == connected_address).first()
     if result:
         msg = "Obtained order list"
-        repeat = str(request_id) + " 200 OK: " + msg
+        reply = str(request_id) + " 200 OK: " + msg
         column_labels = ['storename', 'productname', 'price', 'quantity']
         df = pd.DataFrame(result.get_items(), columns=column_labels)
-        await output.put([repeat, df])
+        return [reply, df]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def client_get_price(request_id, connected_address, output, *args):
+def client_get_price(request_id, connected_address, *args):
     """
     Calculate the total price of the items in the client's shopping cart.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         *args: Variable length argument list: Do not require
 
-    Reply:
+    Return:
         [reply_message, total_price]
         total_price: The price all items in the shopping cart
     """
@@ -298,25 +288,24 @@ async def client_get_price(request_id, connected_address, output, *args):
         Client.connected_address == connected_address).first()
     if result:
         msg = "Order price obtained"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat, result.get_price()])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply, result.get_price()]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def client_checkout_item(request_id, connected_address, output, *args):
+def client_checkout_item(request_id, connected_address, *args):
     """
     Check out the items in the client's shopping cart.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         *args: Variable length argument list: Do not require
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Client).filter(
@@ -325,29 +314,28 @@ async def client_checkout_item(request_id, connected_address, output, *args):
         try:
             result.checkout_item()
             msg = "Order has been checked out"
-            repeat = str(request_id) + " 200 OK: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 200 OK: " + msg
+            return [reply]
         except InventoryShortage as error:
             msg = str(error)
-            repeat = str(request_id) + " 400 Bad Request: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 400 Bad Request: " + msg
+            return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def list_merchant(request_id, connected_address, output, *args):
+def list_merchant(request_id, connected_address, *args):
     """
     Retrieve a list of all merchants from the database.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         *args: Variable length argument list: Do not require
 
-    Reply:
+    Return:
         [reply_message, merchant_dataframe]
         merchant_dataframe (pd.Dataframe): Dataframe of all merchants
     """
@@ -361,21 +349,20 @@ async def list_merchant(request_id, connected_address, output, *args):
         ])
     column_labels = ['storename', 'description', 'email']
     df = pd.DataFrame(merchant_list, columns=column_labels)
-    repeat = str(request_id) + " 200 OK"
-    await output.put([repeat, df])
+    reply = str(request_id) + " 200 OK"
+    return [reply, df]
 
 
-async def list_product(request_id, connected_address, output, *args):
+def list_product(request_id, connected_address, *args):
     """
     Retrieve a list of products from merchant by the store name.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: Storename of the merchant
 
-    Reply:
+    Return:
         [reply_message, product_dataframe]
         product_dataframe (pd.Dataframe): Dataframe of products from merchant
     """
@@ -383,29 +370,28 @@ async def list_product(request_id, connected_address, output, *args):
         Merchant.storename == args[0]).first()
     if result:
         msg = "Product list has been obtained"
-        repeat = str(request_id) + " 200 OK: " + msg
+        reply = str(request_id) + " 200 OK: " + msg
         column_labels = ['product_id', 'storename', 'productname',
                          'description', 'price', 'stock']
         df = pd.DataFrame(result.get_product_list(), columns=column_labels)
-        await output.put([repeat, df])
+        return [reply, df]
     else:
         msg = "No store with this name found"
-        repeat = str(request_id) + " 404 Not Found: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 404 Not Found: " + msg
+        return [reply]
 
 
-async def merchant_create_ivitation(
-        request_id, connected_address, output, *args):
+def merchant_create_ivitation(
+        request_id, connected_address, *args):
     """
     Generate an invitation code for a merchant if they are connected.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         *args: Variable length argument list: Do not require
 
-    Reply:
+    Return:
         [reply_message, invitation_code]
         invitation_code (str): Alphanumeric string of length 12.
     """
@@ -413,22 +399,21 @@ async def merchant_create_ivitation(
         Merchant.connected_address == connected_address).first()
     if result:
         msg = "Invitation code has been generated"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat, create_ivitation(result.storename)])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply, create_ivitation(result.storename)]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def merchant_create(request_id, connected_address, output, *args):
+def merchant_create(request_id, connected_address, *args):
     """
     Create a new merchant record if the invitation code is verified.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The storename of new merchant
         args[1]: The description of new merchant
         args[2]: The email of new merchant
@@ -436,15 +421,15 @@ async def merchant_create(request_id, connected_address, output, *args):
         args[4]: The storename of the store, who is inviting
         args[5]: The invitation code
 
-    Reply:
+    Return:
         [reply_message]
     """
     if check_ivitation(args[4], args[5]):
         if session.query(Merchant).filter(
                 Merchant.storename == args[0]).first():
             msg = "This storename is occupied"
-            repeat = str(request_id) + " 409 Conflict:  " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 409 Conflict:  " + msg
+            return [reply]
         else:
             merchant = Merchant(
                 storename=args[0],
@@ -454,28 +439,27 @@ async def merchant_create(request_id, connected_address, output, *args):
                 )
             session.add(merchant)
             session.commit()
-            repeat = str(request_id) + " 201 Created"
-            await output.put([repeat])
+            reply = str(request_id) + " 201 Created"
+            return [reply]
     else:
         msg = "Your invitation code cannot be verified."
         + " This invitation code may be wrong or has already been used."
         + " Please contact other merchants to request the invitation code."
-        repeat = str(request_id) + " 406 Not Acceptable:  " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 406 Not Acceptable:  " + msg
+        return [reply]
 
 
-async def merchant_login(request_id, connected_address, output, *args):
+def merchant_login(request_id, connected_address, *args):
     """
     Log in a merchant if the credentials are correct.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The storename or email of the merchant
         args[1]: The password of the merchant
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -485,35 +469,34 @@ async def merchant_login(request_id, connected_address, output, *args):
         Merchant.connected_address == connected_address).first()
     if login_status:
         msg = "The merchant has been logged in, please do not log in again"
-        repeat = str(request_id) + " 400 Bad Request: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 400 Bad Request: " + msg
+        return [reply]
     elif result:
         if result.verify_password(args[1]):
             result.merchant_login(args[1], connected_address)
             msg = "This merchant is logged in"
-            repeat = str(request_id) + " 200 OK: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 200 OK: " + msg
+            return [reply]
         else:
             msg = "The password of the merchant is incorrect"
-            repeat = str(request_id) + " 403 Forbidden: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 403 Forbidden: " + msg
+            return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def merchant_logout(request_id, connected_address, output, *args):
+def merchant_logout(request_id, connected_address, *args):
     """
     Log out a merchant if they are currently logged in.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         *args: Variable length argument list: Do not require
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -521,25 +504,24 @@ async def merchant_logout(request_id, connected_address, output, *args):
     if result:
         result.merchant_logout()
         msg = "You have successfully logged out"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def set_merchant_storename(request_id, connected_address, output, *args):
+def set_merchant_storename(request_id, connected_address, *args):
     """
     Set the store name for a logged-in merchant.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The new storename of the merchant
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -547,25 +529,24 @@ async def set_merchant_storename(request_id, connected_address, output, *args):
     if result:
         result.set_storename(args[0])
         msg = "Storename has been set"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def set_merchant_email(request_id, connected_address, output, *args):
+def set_merchant_email(request_id, connected_address, *args):
     """
     Set the email for a logged-in merchant.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The new email of the merchant
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -573,26 +554,25 @@ async def set_merchant_email(request_id, connected_address, output, *args):
     if result:
         result.set_email(args[0])
         msg = "Email has been set"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def set_merchant_description(
-        request_id, connected_address, output, *args):
+def set_merchant_description(
+        request_id, connected_address, *args):
     """
     Set the description for a logged-in merchant.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The new description of the merchant
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -600,26 +580,25 @@ async def set_merchant_description(
     if result:
         result.set_description(args[0])
         msg = "Description has been set"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def set_merchant_password(request_id, connected_address, output, *args):
+def set_merchant_password(request_id, connected_address, *args):
     """
     Set a new password for the merchant if the current password is verified.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The new password.
         args[1]: The current password for verification.
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -628,31 +607,30 @@ async def set_merchant_password(request_id, connected_address, output, *args):
         if result.verify_password(args[1]):
             result.set_password(args[0], args[1])
             msg = "New password has been set"
-            repeat = str(request_id) + " 200 OK: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 200 OK: " + msg
+            return [reply]
         else:
             msg = "The password of the merchant is incorrect"
-            repeat = str(request_id) + " 403 Forbidden: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 403 Forbidden: " + msg
+            return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def merchant_add_product(request_id, connected_address, output, *args):
+def merchant_add_product(request_id, connected_address, *args):
     """
     Add a new product to the merchant's product list.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The name of the new product.
         args[1]: The price of the new product.
         args[2]: The description of the new product.
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -660,25 +638,24 @@ async def merchant_add_product(request_id, connected_address, output, *args):
     if result:
         result.add_product(args[0], args[1], args[2])
         msg = "This product has been added to the product list"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def merchant_del_product(request_id, connected_address, output, *args):
+def merchant_del_product(request_id, connected_address, *args):
     """
     Delete a product from the merchant's product list.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The productId of the product to be deleted.
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -686,27 +663,26 @@ async def merchant_del_product(request_id, connected_address, output, *args):
     if result:
         result.del_product(args[0])
         msg = "This product has been deleted from the product list"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def merchant_restock_product(
-        request_id, connected_address, output, *args):
+def merchant_restock_product(
+        request_id, connected_address, *args):
     """
     Restock a product in the merchant's inventory.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         args[0]: The productId of the product to be restocked.
         args[1]: Quantity of restocking product.
 
-    Reply:
+    Return:
         [reply_message]
     """
     result = session.query(Merchant).filter(
@@ -717,30 +693,29 @@ async def merchant_restock_product(
         if product.merchant_id == result.merchantId:
             product.restock(int(args[1]))
             msg = "This product has been restock"
-            repeat = str(request_id) + " 200 OK: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 200 OK: " + msg
+            return [reply]
         else:
             msg = "You are trying to restock an item that is not from"
             + "this store"
-            repeat = str(request_id) + " 400 Bad Request: " + msg
-            await output.put([repeat])
+            reply = str(request_id) + " 400 Bad Request: " + msg
+            return [reply]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
-async def merchant_get_profit(request_id, connected_address, output, *args):
+def merchant_get_profit(request_id, connected_address, *args):
     """
     Retrieve the total profit for the merchant.
 
     Args:
         request_id (str): The unique identifier for the request.
         connected_address (str): The address of the client making the request.
-        output (queue): The output queue where the response will be put.
         *args: Variable length argument list: Do not require
 
-    Reply:
+    Return:
         [reply_message, total_profit]
         total_profit (float): This merchant's total profit
     """
@@ -748,12 +723,12 @@ async def merchant_get_profit(request_id, connected_address, output, *args):
         Merchant.connected_address == connected_address).first()
     if result:
         msg = "Your total profit has been obtained"
-        repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat, result.get_profit()])
+        reply = str(request_id) + " 200 OK: " + msg
+        return [reply, result.get_profit()]
     else:
         msg = "You have not logged in or your login has timed out"
-        repeat = str(request_id) + " 401 Unauthorized: " + msg
-        await output.put([repeat])
+        reply = str(request_id) + " 401 Unauthorized: " + msg
+        return [reply]
 
 
 function_dict = {
@@ -805,7 +780,8 @@ async def cmd_process(cmd, request_id, connected_address, output, *args):
     """
     func = function_dict.get(cmd)
     if func:
-        await func(request_id, connected_address, output, *args)
+        reply = func(request_id, connected_address, *args)
+        await output.put(reply)
     else:
         msg = "The method you are trying to call is not defined by the server"
         await output.put(str(request_id) + " 400 Bad Request: " + msg)
