@@ -3,7 +3,10 @@ import pandas as pd
 from model import Merchant, Client, Order, Product
 from model import InventoryShortage
 from invitation import create_ivitation, check_ivitation
-from setting import session
+from setting import session, lang
+from lang import _
+
+lang
 
 
 def client_create(request_id, connected_address, *args):
@@ -21,7 +24,7 @@ def client_create(request_id, connected_address, *args):
         [reply_message]
     """
     if session.query(Client).filter(Client.username == args[0]).first():
-        msg = "This username is occupied"
+        msg = _("This username is occupied")
         reply = str(request_id) + " 409 Conflict:  " + msg
         return [reply]
     else:
@@ -48,11 +51,11 @@ def set_client_username(request_id, connected_address, *args):
         Client.connected_address == connected_address).first()
     if result:
         result.set_username(args[0])
-        msg = "Username has been set"
+        msg = _("Username has been set")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -73,11 +76,11 @@ def set_client_email(request_id, connected_address, *args):
         Client.connected_address == connected_address).first()
     if result:
         result.set_email(args[0])
-        msg = "Email has been set"
+        msg = _("Email has been set")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -100,15 +103,15 @@ def set_client_password(request_id, connected_address, *args):
     if result:
         if result.verify_password(args[1]):
             result.set_password(args[0], args[1])
-            msg = "New password has been set"
+            msg = _("New password has been set")
             reply = str(request_id) + " 200 OK: " + msg
             return [reply]
         else:
-            msg = "The password of the user is incorrect"
+            msg = _("The password of the user is incorrect")
             reply = str(request_id) + " 403 Forbidden: " + msg
             return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -132,21 +135,21 @@ def client_login(request_id, connected_address, *args):
     login_status = session.query(Client.connected_address).filter(
         Client.connected_address == connected_address).first()
     if login_status:
-        msg = "The user has been logged in, please do not log in again"
+        msg = _("The user has been logged in, please do not log in again")
         reply = str(request_id) + " 400 Bad Request: " + msg
         return [reply]
     elif result:
         if result.verify_password(args[1]):
             result.client_login(args[1], connected_address)
-            msg = "This user is logged in"
+            msg = _("This user is logged in")
             reply = str(request_id) + " 200 OK: " + msg
             return [reply]
         else:
-            msg = "The password of the user is incorrect"
+            msg = _("The password of the user is incorrect")
             reply = str(request_id) + " 403 Forbidden: " + msg
             return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -167,11 +170,11 @@ def client_logout(request_id, connected_address, *args):
         Client.connected_address == connected_address).first()
     if result:
         result.client_logout()
-        msg = "You have successfully logged out"
+        msg = _("You have successfully logged out")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -194,20 +197,20 @@ def client_add_item(request_id, connected_address, *args):
     product = session.query(Product).filter(
         Product.productId == args[0]).first()
     if int(args[1]) <= 0:
-        msg = "The quantity of added products should be a positive integer"
+        msg = _("The quantity of added products should be a positive integer")
         reply = str(request_id) + " 400 Bad Request: " + msg
         return [reply]
     elif not product:
-        msg = "The product you are trying to add cannot be found"
+        msg = _("The product you are trying to add cannot be found")
         reply = str(request_id) + " 404 Not Found: " + msg
         return [reply]
     elif result:
         result.add_item(args[0], int(args[1]))
-        msg = "This product has been added to the shopping cart"
+        msg = _("This product has been added to the shopping cart")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -230,16 +233,16 @@ def client_remove_item(request_id, connected_address, *args):
             Order.product_id == args[0]
             ).first()
     if not product:
-        msg = "This product is not in your shopping cart"
+        msg = _("This product is not in your shopping cart")
         reply = str(request_id) + " 404 Not Found: " + msg
         return [reply]
     elif result:
         result.remove_item(args[0])
-        msg = "This product has been removed from the shopping cart"
+        msg = _("This product has been removed from the shopping cart")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -260,13 +263,14 @@ def client_get_items(request_id, connected_address, *args):
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
-        msg = "Obtained order list"
+        msg = _("Obtained order list")
         reply = str(request_id) + " 200 OK: " + msg
-        column_labels = ['storename', 'productname', 'price', 'quantity']
+        column_labels = [_('storename'), _('productname'),
+                         _('price'), _('quantity')]
         df = pd.DataFrame(result.get_items(), columns=column_labels)
         return [reply, df]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -287,11 +291,11 @@ def client_get_price(request_id, connected_address, *args):
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
-        msg = "Order price obtained"
+        msg = _("Order price obtained")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply, result.get_price()]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -313,15 +317,15 @@ def client_checkout_item(request_id, connected_address, *args):
     if result:
         try:
             result.checkout_item()
-            msg = "Order has been checked out"
+            msg = _("Order has been checked out")
             reply = str(request_id) + " 200 OK: " + msg
             return [reply]
         except InventoryShortage as error:
-            msg = str(error)
+            msg = _(str(error))
             reply = str(request_id) + " 400 Bad Request: " + msg
             return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -347,7 +351,8 @@ def list_merchant(request_id, connected_address, *args):
             merchant.description,
             merchant.email
         ])
-    column_labels = ['storename', 'description', 'email']
+    column_labels = [_('storename'), _('description'),
+                     _('email')]
     df = pd.DataFrame(merchant_list, columns=column_labels)
     reply = str(request_id) + " 200 OK"
     return [reply, df]
@@ -369,14 +374,14 @@ def list_product(request_id, connected_address, *args):
     result = session.query(Merchant).filter(
         Merchant.storename == args[0]).first()
     if result:
-        msg = "Product list has been obtained"
+        msg = _("Product list has been obtained")
         reply = str(request_id) + " 200 OK: " + msg
-        column_labels = ['product_id', 'storename', 'productname',
-                         'description', 'price', 'stock']
+        column_labels = [_('product_id'), _('storename'), _('productname'),
+                         _('description'), _('price'), _('stock')]
         df = pd.DataFrame(result.get_product_list(), columns=column_labels)
         return [reply, df]
     else:
-        msg = "No store with this name found"
+        msg = _("No store with this name found")
         reply = str(request_id) + " 404 Not Found: " + msg
         return [reply]
 
@@ -398,11 +403,11 @@ def merchant_create_ivitation(
     result = session.query(Merchant).filter(
         Merchant.connected_address == connected_address).first()
     if result:
-        msg = "Invitation code has been generated"
+        msg = _("Invitation code has been generated")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply, create_ivitation(result.storename)]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -427,7 +432,7 @@ def merchant_create(request_id, connected_address, *args):
     if check_ivitation(args[4], args[5]):
         if session.query(Merchant).filter(
                 Merchant.storename == args[0]).first():
-            msg = "This storename is occupied"
+            msg = _("This storename is occupied")
             reply = str(request_id) + " 409 Conflict:  " + msg
             return [reply]
         else:
@@ -442,7 +447,7 @@ def merchant_create(request_id, connected_address, *args):
             reply = str(request_id) + " 201 Created"
             return [reply]
     else:
-        msg = "Your invitation code cannot be verified."
+        msg = _("Your invitation code cannot be verified.")
         + " This invitation code may be wrong or has already been used."
         + " Please contact other merchants to request the invitation code."
         reply = str(request_id) + " 406 Not Acceptable:  " + msg
@@ -468,21 +473,21 @@ def merchant_login(request_id, connected_address, *args):
     login_status = session.query(Merchant.connected_address).filter(
         Merchant.connected_address == connected_address).first()
     if login_status:
-        msg = "The merchant has been logged in, please do not log in again"
+        msg = _("The merchant has been logged in, please do not log in again")
         reply = str(request_id) + " 400 Bad Request: " + msg
         return [reply]
     elif result:
         if result.verify_password(args[1]):
             result.merchant_login(args[1], connected_address)
-            msg = "This merchant is logged in"
+            msg = _("This merchant is logged in")
             reply = str(request_id) + " 200 OK: " + msg
             return [reply]
         else:
-            msg = "The password of the merchant is incorrect"
+            msg = _("The password of the merchant is incorrect")
             reply = str(request_id) + " 403 Forbidden: " + msg
             return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -503,11 +508,11 @@ def merchant_logout(request_id, connected_address, *args):
         Merchant.connected_address == connected_address).first()
     if result:
         result.merchant_logout()
-        msg = "You have successfully logged out"
+        msg = _("You have successfully logged out")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -528,11 +533,11 @@ def set_merchant_storename(request_id, connected_address, *args):
         Merchant.connected_address == connected_address).first()
     if result:
         result.set_storename(args[0])
-        msg = "Storename has been set"
+        msg = _("Storename has been set")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -553,11 +558,11 @@ def set_merchant_email(request_id, connected_address, *args):
         Merchant.connected_address == connected_address).first()
     if result:
         result.set_email(args[0])
-        msg = "Email has been set"
+        msg = _("Email has been set")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -579,11 +584,11 @@ def set_merchant_description(
         Merchant.connected_address == connected_address).first()
     if result:
         result.set_description(args[0])
-        msg = "Description has been set"
+        msg = _("Description has been set")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -606,15 +611,15 @@ def set_merchant_password(request_id, connected_address, *args):
     if result:
         if result.verify_password(args[1]):
             result.set_password(args[0], args[1])
-            msg = "New password has been set"
+            msg = _("New password has been set")
             reply = str(request_id) + " 200 OK: " + msg
             return [reply]
         else:
-            msg = "The password of the merchant is incorrect"
+            msg = _("The password of the merchant is incorrect")
             reply = str(request_id) + " 403 Forbidden: " + msg
             return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -637,11 +642,11 @@ def merchant_add_product(request_id, connected_address, *args):
         Merchant.connected_address == connected_address).first()
     if result:
         result.add_product(args[0], args[1], args[2])
-        msg = "This product has been added to the product list"
+        msg = _("This product has been added to the product list")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -662,11 +667,11 @@ def merchant_del_product(request_id, connected_address, *args):
         Merchant.connected_address == connected_address).first()
     if result:
         result.del_product(args[0])
-        msg = "This product has been deleted from the product list"
+        msg = _("This product has been deleted from the product list")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -692,16 +697,15 @@ def merchant_restock_product(
     if result:
         if product.merchant_id == result.merchantId:
             product.restock(int(args[1]))
-            msg = "This product has been restock"
+            msg = _("This product has been restock")
             reply = str(request_id) + " 200 OK: " + msg
             return [reply]
         else:
-            msg = "You are trying to restock an item that is not from"
-            + "this store"
+            msg = _("You are restocking an item that is not from this store")
             reply = str(request_id) + " 400 Bad Request: " + msg
             return [reply]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -722,11 +726,11 @@ def merchant_get_profit(request_id, connected_address, *args):
     result = session.query(Merchant).filter(
         Merchant.connected_address == connected_address).first()
     if result:
-        msg = "Your total profit has been obtained"
+        msg = _("Your total profit has been obtained")
         reply = str(request_id) + " 200 OK: " + msg
         return [reply, result.get_profit()]
     else:
-        msg = "You have not logged in or your login has timed out"
+        msg = _("You have not logged in or your login has timed out")
         reply = str(request_id) + " 401 Unauthorized: " + msg
         return [reply]
 
@@ -783,5 +787,5 @@ async def cmd_process(cmd, request_id, connected_address, output, *args):
         reply = func(request_id, connected_address, *args)
         await output.put(reply)
     else:
-        msg = "The method you are trying to call is not defined by the server"
+        msg = _("You are trying to call an undefined method")
         await output.put(str(request_id) + " 400 Bad Request: " + msg)
