@@ -68,13 +68,6 @@ class Client(Base):
     connected_address = Column(String, default=None)
     order = relationship("Order", backref="client")
 
-    def __repr__(self):
-        """Return a string representation of the client."""
-        return f'''
-            username: {self.username}
-            email: {self.email}
-        '''
-
     def get_username(self):
         """Return the username of the client."""
         return self.username
@@ -298,23 +291,6 @@ class Product(Base):
     description = Column(String)
     merchant_id = Column(Integer, ForeignKey('merchant.merchantId'))
 
-    def __repr__(self):
-        """
-        Represent the Product instance as a string.
-
-        Returns:
-            str: A string representation of the product with its ID,
-            store name, product name, description, price, and stock.
-        """
-        return f'''
-            product_id: {self.productId}
-            storename: {self.merchant.storename}
-            productname: {self.productname}
-            description: {self.description}
-            price: {self.price}
-            stock: {self.stock}
-        '''
-
     def get_productname(self):
         """Get the name of the product."""
         return self.productname
@@ -413,19 +389,6 @@ class Merchant(Base):
     connected_address = Column(String, default=None)
     profit = Column(Float, default=0.0)
     product = relationship("Product", backref="merchant")
-
-    def __repr__(self):
-        """
-        Represent the Merchant instance as a string.
-
-        Returns:
-            str: A string containing the store name, description, and email.
-        """
-        return f'''
-            storename: {self.storename}
-            description: {self.description}
-            email: {self.email}
-        '''
 
     def get_storename(self):
         """
@@ -550,7 +513,17 @@ class Merchant(Base):
         Returns:
             list: A list of Product objects.
         """
-        return self.product
+        product_list = []
+        for product in self.product:
+            product_list.append([
+                product.productId,
+                product.merchant.storename,
+                product.productname,
+                product.description,
+                product.price,
+                product.stock
+                ])
+        return product_list
 
     def add_product(self, productname, price, description):
         """

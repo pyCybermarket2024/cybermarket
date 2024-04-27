@@ -1,4 +1,5 @@
 """Accept commands from server.py and output the results to the queue."""
+import pandas as pd
 from model import Merchant, Client, Order, Product
 from model import InventoryShortage
 from invitation import create_ivitation, check_ivitation
@@ -262,15 +263,17 @@ async def client_get_items(request_id, connected_address, output, *args):
         *args: Variable length argument list: Do not require
 
     Reply:
-        [reply_message, item_list]
-        item_list: A list of all items in the shopping cart
+        [reply_message, item_dataframe]
+        item_dataframe (pd.Dataframe): Dataframe of items in the shopping cart
     """
     result = session.query(Client).filter(
         Client.connected_address == connected_address).first()
     if result:
         msg = "Obtained order list"
         repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat, result.get_items()])
+        column_labels = ['storename', 'productname', 'price', 'quantity']
+        df = pd.DataFrame(result.get_items(), columns=column_labels)
+        await output.put([repeat, df])
     else:
         msg = "You have not logged in or your login has timed out"
         repeat = str(request_id) + " 401 Unauthorized: " + msg
@@ -345,12 +348,21 @@ async def list_merchant(request_id, connected_address, output, *args):
         *args: Variable length argument list: Do not require
 
     Reply:
-        [reply_message, merchant_list]
-        merchant_list: list of all merchants
+        [reply_message, merchant_dataframe]
+        merchant_dataframe (pd.Dataframe): Dataframe of all merchants
     """
     result = session.query(Merchant).all()
+    merchant_list = []
+    for merchant in result:
+        merchant_list.append([
+            merchant.storename,
+            merchant.description,
+            merchant.email
+        ])
+    column_labels = ['storename', 'description', 'email']
+    df = pd.DataFrame(merchant_list, columns=column_labels)
     repeat = str(request_id) + " 200 OK"
-    await output.put([repeat, result])
+    await output.put([repeat, df])
 
 
 async def list_product(request_id, connected_address, output, *args):
@@ -364,15 +376,18 @@ async def list_product(request_id, connected_address, output, *args):
         args[0]: Storename of the merchant
 
     Reply:
-        [reply_message, product_list]
-        product_list: A list of all products from the merchant
+        [reply_message, product_dataframe]
+        product_dataframe (pd.Dataframe): Dataframe of products from merchant
     """
     result = session.query(Merchant).filter(
         Merchant.storename == args[0]).first()
     if result:
         msg = "Product list has been obtained"
         repeat = str(request_id) + " 200 OK: " + msg
-        await output.put([repeat, result.get_product_list()])
+        column_labels = ['product_id', 'storename', 'productname',
+                         'description', 'price', 'stock']
+        df = pd.DataFrame(result.get_product_list(), columns=column_labels)
+        await output.put([repeat, df])
     else:
         msg = "No store with this name found"
         repeat = str(request_id) + " 404 Not Found: " + msg
