@@ -764,7 +764,7 @@ function_dict = {
 }
 
 
-async def cmd_process(cmd, request_id, connected_address, output, *args):
+def cmd_process(cmd, request_id, connected_address, *args):
     """
     Execute the corresponding function from the function dictionary.
 
@@ -779,13 +779,14 @@ async def cmd_process(cmd, request_id, connected_address, output, *args):
     function is called with the provided arguments.
     If the command is not found, a "400 Bad Request" error message is returned.
 
-    Returns:
-    None
+    Return:
+        reply (list): List with prompt information and query results
     """
     func = function_dict.get(cmd)
     if func:
         reply = func(request_id, connected_address, *args)
-        await output.put(reply)
+        return reply
     else:
         msg = _("You are trying to call an undefined method")
-        await output.put(str(request_id) + " 400 Bad Request: " + msg)
+        reply = str(request_id) + " 400 Bad Request: " + msg
+        return reply

@@ -49,8 +49,9 @@ async def handle_client(reader, writer):
                 cmd, request_id, *args = message.split(' ')
                 # Pass parameters to the request processing function
                 # Wait for processing to complete
-                await cmd_process(cmd, request_id, connect,
-                                  connect_list[connect], *args)
+                result = cmd_process(cmd, request_id,
+                                     connect, *args)
+                await connect_list[connect].put(result)
             elif request is receive:
                 receive = asyncio.create_task(connect_list[connect].get())
                 # Send the results in the queue to be sent to the client
