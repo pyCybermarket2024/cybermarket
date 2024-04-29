@@ -1,8 +1,9 @@
 from ast import Await
 from asyncio import events
+import email
 from lib2to3.pgen2.token import AWAIT
 from PyQt5.QtWidgets import (QApplication, QWidget, QTabWidget, QVBoxLayout, QPushButton, 
-                             QLineEdit, QLabel, QMessageBox, QFormLayout)
+                             QLineEdit, QLabel, QMessageBox, QFormLayout,QInputDialog)
 from PyQt5.QtCore import pyqtSlot
 from asyncsession import client_task
 import sys
@@ -13,12 +14,10 @@ class LoginWindow(QWidget):
 
     def __init__(self, message_queue, result_queue):
         super().__init__()
-       # self.client_thread = AsyncSession("127.0.0.1", 22333)
-        #self.client_thread.get_reply.connect(self.handle_received)
         self.initUI()
         self.message_queue = message_queue
         self.result_queue = result_queue
-        #coro=self.client_thread.run()#创建事件
+        self.invite_cod = None
 
     async def run_client(self):
         await self.client_thread.run()
@@ -59,13 +58,33 @@ class LoginWindow(QWidget):
     def setupMerchantRegister(self, tab):
         layout = QFormLayout(tab)
         username = QLineEdit()
+        description_store = QLineEdit()
+        email = QLineEdit()
         password = QLineEdit()
+        inviter_name = QLineEdit()
+        self.invite_cod = QLineEdit()
+
         password.setEchoMode(QLineEdit.Password)
         register_button = QPushButton('注册')
-        register_button.clicked.connect(lambda: self.send_register('merchant', username.text(), password.text(), None))
+        register_button.clicked.connect(
+                    lambda: self.send_register(
+                    'merchant', 
+                    username.text(),
+                    description_store.text(),
+                    email.text() ,
+                    password.text(),
+                    inviter_name.text(),
+                    self.invite_cod.text()))
+        regist_code_button = QPushButton('申请邀请码')
+        regist_code_button.clicked.connect(lambda:self.creat_register_code(self))
         layout.addRow('账号', username)
+        layout.addRow('店铺介绍', description_store)
+        layout.addRow('电子邮箱',email)
         layout.addRow('密码', password)
+        layout.addRow('邀请人', inviter_name)
+        layout.addRow('邀请码', self.invite_cod)
         layout.addRow(register_button)
+        layout.addRow(regist_code_button)
 
     def setupUserLogin(self, tab):
         layout = QFormLayout(tab)
@@ -81,33 +100,63 @@ class LoginWindow(QWidget):
     def setupUserRegister(self, tab):
         layout = QFormLayout(tab)
         username = QLineEdit()
+        email=QLineEdit()
         password = QLineEdit()
         password.setEchoMode(QLineEdit.Password)
         register_button = QPushButton('注册')
-        register_button.clicked.connect(lambda: self.send_register('user', username.text(), password.text(), None))
+        register_button.clicked.connect(lambda: self.send_register('user', username.text(),email.text(), password.text(), None,None,None))
+
         layout.addRow('账号', username)
+        layout.addRow('电子邮箱',email)
         layout.addRow('密码', password)
         layout.addRow(register_button)
+ 
+
+    @qasync.asyncSlot()
+    async def creat_register_code(self):
+        counter_str = str(self.send_message_counter)  # This should be unique per message
+        self.send_message_counter+=1
+        message = "MERCHANT_CREATE_IVITATION " + counter_str
+        asyncio.create_task(self.message_queue.put(message))
+        result = await asyncio.create_task(self.result_queue.get())
+        reply = result[0]
+        code = result[1]
+        print(result)
+        if len(result)==1:
+            warning = QMessageBox.Warning(self)
+            warning.setWindowTitle('来自服务器的警告')
+            warning.setText(reply)
+        elif len(result)==2:
+            qusetion = QMessageBox.question(self,
+                                        '确认',
+                                        '已获取邀请码:'+ code + '是否将其填入文本框？',
+                                            )
+            if qusetion == QMessageBox.Yes:
+                self.invite_cod.setText(code)
 
     @qasync.asyncSlot()
     async def send_login(self, role, username, password):
         counter_str = str(self.send_message_counter)  # This should be unique per message
         self.send_message_counter+=1
         if role == 'user':
-            msg = "CLIENT_LOGIN " + counter_str + " " + username + " " + password
+            message = "CLIENT_LOGIN " + counter_str + " " + username + " " + password
         if role == 'merchant':
-            msg = "MERCHANT_LOGIN " + counter_str + " " + username + " " + password
-        asyncio.create_task(self.message_queue.put(msg))
+            message = "MERCHANT_LOGIN " + counter_str + " " + username + " " + password
+        asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
         QMessageBox.question(self, '服务器消息', result)
 
-
-    def send_register(self, role, username, password, invite_code):
-        if invite_code:
-            message = f'REGISTER {role} {username} {password} {invite_code}'
-        else:
-            message = f'REGISTER {role} {username} {password}'
-        self.client_thread.send_message(message)
+    @qasync.asyncSlot()
+    async def send_register(self, role, username,description,email, password,inviter_name, invite_code):
+        counter_str = str(self.send_message_counter)  # This should be unique per message
+        self.send_message_counter+=1
+        if role=='user':
+            message = "CLIENT_CREATE " + counter_str + " " + str(username)  +" " + str(email)+ " " + str(password)
+        if role == 'merchant':
+            message = "MERCHANT_CREATE " + counter_str + " " + username  +" " + str(description) + " " + str(email) +" "+ str(password) +" "+str(inviter_name)+" "+str(invite_code)
+        asyncio.create_task(self.message_queue.put(message))
+        result = await asyncio.create_task(self.result_queue.get())
+        QMessageBox.question(self, '服务器消息', result)
 
     #def handle_received(self, message):
     #    # Process the received message and update UI accordingly
