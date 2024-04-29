@@ -1,6 +1,7 @@
 import asyncio
-from PyQt5.QtCore import pyqtSlot,QThread
-import qasync 
+import pickle
+
+
 async def client_task(addr, port, message_queue, result_queue):
     """
     Asynchronous client task for handling sending and receiving messages
@@ -24,7 +25,6 @@ async def client_task(addr, port, message_queue, result_queue):
     # Get a message from the main process
     send = asyncio.create_task(message_queue.get())
     receive = asyncio.create_task(reader.read(4096))
-    loop=asyncio.get_event_loop()
     msg = ""
     while msg.strip() != "exit()":
         done, pending = await asyncio.wait(
@@ -40,7 +40,7 @@ async def client_task(addr, port, message_queue, result_queue):
                 await writer.drain()
             elif info is receive:
                 receive = asyncio.create_task(reader.read(4096))
-                data = info.result().decode().strip()
+                data = pickle.loads(info.result())
                 result_queue.put_nowait(data)
     writer.close()
     await writer.wait_closed()

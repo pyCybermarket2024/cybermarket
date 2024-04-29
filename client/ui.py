@@ -1,16 +1,13 @@
-from ast import Await
-from asyncio import events
-import email
-from lib2to3.pgen2.token import AWAIT
-from PyQt5.QtWidgets import (QApplication, QWidget, QTabWidget, QVBoxLayout, QPushButton, 
-                             QLineEdit, QLabel, QMessageBox, QFormLayout,QInputDialog)
-from PyQt5.QtCore import pyqtSlot
 from asyncsession import client_task
 import sys
 import asyncio
-import qasync 
+import qasync
+from PyQt5.QtWidgets import (QApplication, QWidget, QTabWidget, QVBoxLayout, QPushButton,
+                             QLineEdit, QLabel, QMessageBox, QFormLayout,QInputDialog)
+
+
 class LoginWindow(QWidget):
-    send_message_counter=0
+    send_message_counter = 0
 
     def __init__(self, message_queue, result_queue):
         super().__init__()
@@ -21,6 +18,7 @@ class LoginWindow(QWidget):
 
     async def run_client(self):
         await self.client_thread.run()
+
     def initUI(self):
         self.setWindowTitle('Login and Registration')
         self.setGeometry(100, 100, 400, 300)
@@ -28,7 +26,7 @@ class LoginWindow(QWidget):
 
         tab_widget = QTabWidget(self)
         layout.addWidget(tab_widget)
-        
+
         merchant_login_tab = QWidget()
         merchant_register_tab = QWidget()
         user_login_tab = QWidget()
@@ -50,7 +48,8 @@ class LoginWindow(QWidget):
         password = QLineEdit()
         password.setEchoMode(QLineEdit.Password)
         login_button = QPushButton('登录')
-        login_button.clicked.connect(lambda: self.send_login('merchant', username.text(), password.text()))
+        login_button.clicked.connect(lambda: self.send_login(
+            'merchant', username.text(), password.text()))
         layout.addRow('账号', username)
         layout.addRow('密码', password)
         layout.addRow(login_button)
@@ -66,20 +65,14 @@ class LoginWindow(QWidget):
 
         password.setEchoMode(QLineEdit.Password)
         register_button = QPushButton('注册')
-        register_button.clicked.connect(
-                    lambda: self.send_register(
-                    'merchant', 
-                    username.text(),
-                    description_store.text(),
-                    email.text() ,
-                    password.text(),
-                    inviter_name.text(),
-                    self.invite_cod.text()))
+        register_button.clicked.connect(lambda: self.send_register(
+            'merchant', username.text(), description_store.text(), email.text(
+            ), password.text(), inviter_name.text(), self.invite_cod.text()))
         regist_code_button = QPushButton('申请邀请码')
-        regist_code_button.clicked.connect(lambda:self.creat_register_code(self))
+        regist_code_button.clicked.connect(lambda: self.creat_register_code())
         layout.addRow('账号', username)
         layout.addRow('店铺介绍', description_store)
-        layout.addRow('电子邮箱',email)
+        layout.addRow('电子邮箱', email)
         layout.addRow('密码', password)
         layout.addRow('邀请人', inviter_name)
         layout.addRow('邀请码', self.invite_cod)
@@ -92,7 +85,8 @@ class LoginWindow(QWidget):
         password = QLineEdit()
         password.setEchoMode(QLineEdit.Password)
         login_button = QPushButton('登录')
-        login_button.clicked.connect(lambda: self.send_login('user', username.text(), password.text()))
+        login_button.clicked.connect(
+            lambda: self.send_login('user', username.text(), password.text()))
         layout.addRow('账号', username)
         layout.addRow('密码', password)
         layout.addRow(login_button)
@@ -100,67 +94,72 @@ class LoginWindow(QWidget):
     def setupUserRegister(self, tab):
         layout = QFormLayout(tab)
         username = QLineEdit()
-        email=QLineEdit()
+        email = QLineEdit()
         password = QLineEdit()
         password.setEchoMode(QLineEdit.Password)
         register_button = QPushButton('注册')
-        register_button.clicked.connect(lambda: self.send_register('user', username.text(),email.text(), password.text(), None,None,None))
+        register_button.clicked.connect(
+            lambda: self.send_register('user', username.text(), email.text(),
+                                       password.text(), None, None, None))
 
         layout.addRow('账号', username)
-        layout.addRow('电子邮箱',email)
+        layout.addRow('电子邮箱', email)
         layout.addRow('密码', password)
         layout.addRow(register_button)
- 
 
     @qasync.asyncSlot()
-    async def creat_register_code(self):
-        counter_str = str(self.send_message_counter)  # This should be unique per message
-        self.send_message_counter+=1
+    async def creat_register_code(self, block):
+        # This should be unique per message
+        counter_str = str(self.send_message_counter)
+        self.send_message_counter += 1
         message = "MERCHANT_CREATE_IVITATION " + counter_str
         asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
         reply = result[0]
         code = result[1]
         print(result)
-        if len(result)==1:
+        if len(result) == 1:
             warning = QMessageBox.Warning(self)
             warning.setWindowTitle('来自服务器的警告')
             warning.setText(reply)
-        elif len(result)==2:
-            qusetion = QMessageBox.question(self,
-                                        '确认',
-                                        '已获取邀请码:'+ code + '是否将其填入文本框？',
-                                            )
-            if qusetion == QMessageBox.Yes:
-                self.invite_cod.setText(code)
+        elif len(result) == 2:
+            QMessageBox.question(self, '确认', '已获取邀请码:' + code)
 
     @qasync.asyncSlot()
     async def send_login(self, role, username, password):
-        counter_str = str(self.send_message_counter)  # This should be unique per message
-        self.send_message_counter+=1
+        # This should be unique per message
+        counter_str = str(self.send_message_counter)
+        self.send_message_counter += 1
         if role == 'user':
-            message = "CLIENT_LOGIN " + counter_str + " " + username + " " + password
+            message = "CLIENT_LOGIN {} {} {}".format(counter_str, username,
+                                                     password)
         if role == 'merchant':
-            message = "MERCHANT_LOGIN " + counter_str + " " + username + " " + password
+            message = "MERCHANT_LOGIN {} {} {}".format(counter_str, username,
+                                                       password)
         asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
-        QMessageBox.question(self, '服务器消息', result)
+        QMessageBox.question(self, '服务器消息', result[0])
 
     @qasync.asyncSlot()
-    async def send_register(self, role, username,description,email, password,inviter_name, invite_code):
-        counter_str = str(self.send_message_counter)  # This should be unique per message
-        self.send_message_counter+=1
-        if role=='user':
-            message = "CLIENT_CREATE " + counter_str + " " + str(username)  +" " + str(email)+ " " + str(password)
+    async def send_register(self, role, username, description, email, password,
+                            inviter_name, invite_code):
+        # This should be unique per message
+        counter_str = str(self.send_message_counter)
+        self.send_message_counter += 1
+        if role == 'user':
+            message = "CLIENT_CREATE {} {} {} {}".format(
+                counter_str, str(username), str(email), str(password))
         if role == 'merchant':
-            message = "MERCHANT_CREATE " + counter_str + " " + username  +" " + str(description) + " " + str(email) +" "+ str(password) +" "+str(inviter_name)+" "+str(invite_code)
+            message = "MERCHANT_CREATE {} {} {} {} {} {} {}".format(
+                counter_str, username, str(description), str(email),
+                str(password), str(inviter_name), str(invite_code))
         asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
-        QMessageBox.question(self, '服务器消息', result)
+        QMessageBox.question(self, '服务器消息', result[0])
 
-    #def handle_received(self, message):
-    #    # Process the received message and update UI accordingly
-    #    print(f'Received: {message}')
+    # def handle_received(self, message):
+    # Process the received message and update UI accordingly
+    # print(f'Received: {message}')
 
     def closeEvent(self, event):
         self.client_thread.is_running = False
@@ -172,18 +171,18 @@ class LoginWindow(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
-
     loop = qasync.QEventLoop(app)
     asyncio.set_event_loop(loop)
     message_queue = asyncio.Queue()
     result_queue = asyncio.Queue()
-    loop.create_task(client_task('127.0.0.1', 22333, message_queue, result_queue))
-    ex = LoginWindow(message_queue,result_queue)
+    loop.create_task(
+        client_task('127.0.0.1', 22333, message_queue, result_queue)
+        )
+    ex = LoginWindow(message_queue, result_queue)
     ex.show()
-    #loop = asyncio.get_event_loop()
+    # loop = asyncio.get_event_loop()
     try:
-       loop.run_forever()
+        loop.run_forever()
     finally:
         loop.close()  # 当窗口关闭时关闭事件循环
 
