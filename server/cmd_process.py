@@ -789,4 +789,4 @@ def cmd_process(cmd, request_id, connected_address, *args):
     else:
         msg = _("You are trying to call an undefined method")
         reply = str(request_id) + " 400 Bad Request: " + msg
-        return reply
+        return [reply]

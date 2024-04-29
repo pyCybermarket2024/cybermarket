@@ -9,6 +9,7 @@ Functions:
     main(): Start the server and listen for incoming connections.
 """
 import asyncio
+import pickle
 from cmd_process import cmd_process
 
 connect_list = {}
@@ -55,7 +56,7 @@ async def handle_client(reader, writer):
             elif request is receive:
                 receive = asyncio.create_task(connect_list[connect].get())
                 # Send the results in the queue to be sent to the client
-                writer.write(f"{request.result()}\n".encode())
+                writer.write(pickle.dumps(request.result()))
                 await writer.drain()
     send.cancel()
     receive.cancel()
