@@ -219,19 +219,18 @@ class Client(Base):
     def checkout_item(self):
         """Check out all items in the client's basket, finalizing the order."""
         for item in self.order:
-            if item.quantity < item.product.stock:
+            if item.quantity <= item.product.stock:
                 item.checkout()
                 session.delete(item)
                 session.commit()
             else:
                 raise InventoryShortage(
-                    "Inventory shortage for product "
-                    + "{} from merchant {},".format(
+                    "Inventory shortage for product {} from merchant {}, \
+checkout was not fully executed and this item is still in your cart".format(
                         item.product.productname,
                         item.product.merchant.storename
-                        )
-                    + " checkout was not fully executed "
-                    + "and this item is still in your cart")
+                    )
+                )
 
 
 class Order(Base):

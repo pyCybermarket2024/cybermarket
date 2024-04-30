@@ -25,7 +25,7 @@ def client_create(request_id, connected_address, *args):
     """
     if session.query(Client).filter(Client.username == args[0]).first():
         msg = _("This username is occupied")
-        reply = str(request_id) + " 409 Conflict:  " + msg
+        reply = str(request_id) + " 409 Conflict: " + msg
         return [reply]
     else:
         client = Client(username=args[0], email=args[1], password=args[2])
@@ -447,10 +447,10 @@ def merchant_create(request_id, connected_address, *args):
             reply = str(request_id) + " 201 Created"
             return [reply]
     else:
-        msg = _("Your invitation code cannot be verified.")
-        + " This invitation code may be wrong or has already been used."
-        + " Please contact other merchants to request the invitation code."
-        reply = str(request_id) + " 406 Not Acceptable:  " + msg
+        msg = _("Your invitation code cannot be verified.\
+ This invitation code may be wrong or has already been used.\
+ Please contact other merchants to request the invitation code.")
+        reply = str(request_id) + " 406 Not Acceptable: " + msg
         return [reply]
 
 
@@ -695,7 +695,7 @@ def merchant_restock_product(
     product = session.query(Product).filter(
         Product.productId == args[0]).first()
     if result:
-        if product.merchant_id == result.merchantId:
+        if product and product.merchant_id == result.merchantId:
             product.restock(int(args[1]))
             msg = _("This product has been restock")
             reply = str(request_id) + " 200 OK: " + msg

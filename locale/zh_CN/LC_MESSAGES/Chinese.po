@@ -145,8 +145,8 @@ msgid "This storename is occupied"
 msgstr "该店名已被占用"
 
 #: server/cmd_process.py:450
-msgid "Your invitation code cannot be verified."
-msgstr "无法验证您的邀请码。"
+msgid "Your invitation code cannot be verified. This invitation code may be wrong or has already been used. Please contact other merchants to request the invitation code."
+msgstr "无法验证您的邀请码。 该邀请码可能有误或已被使用。 请联系其他商户索取邀请码。"
 
 #: server/cmd_process.py:476
 msgid "The merchant has been logged in, please do not log in again"
