@@ -131,11 +131,11 @@ class LoginWindow(QWidget):
         counter_str = str(self.send_message_counter)
         self.send_message_counter += 1
         if role == 'user':
-            message = "CLIENT_LOGIN {} {} {}".format(counter_str, username,
-                                                     password)
+            message = ["CLIENT_LOGIN", counter_str, 
+                       username, password]
         if role == 'merchant':
-            message = "MERCHANT_LOGIN {} {} {}".format(counter_str, username,
-                                                       password)
+            message = ["MERCHANT_LOGIN", counter_str, str(username),
+                                                      str(password)]
         asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
         QMessageBox.question(self, '服务器消息', result[0])
@@ -147,12 +147,12 @@ class LoginWindow(QWidget):
         counter_str = str(self.send_message_counter)
         self.send_message_counter += 1
         if role == 'user':
-            message = "CLIENT_CREATE {} {} {} {}".format(
-                counter_str, str(username), str(email), str(password))
+            message = ["CLIENT_CREATE", counter_str, str(username),
+                       str(email), str(password)]
         if role == 'merchant':
-            message = "MERCHANT_CREATE {} {} {} {} {} {} {}".format(
-                counter_str, username, str(description), str(email),
-                str(password), str(inviter_name), str(invite_code))
+            message = ["MERCHANT_CREATE", counter_str, str(username),
+                      str(description), str(email),str(password),
+                     str(inviter_name), str(invite_code)]
         asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
         QMessageBox.question(self, '服务器消息', result[0])
