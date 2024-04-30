@@ -33,7 +33,7 @@ async def handle_client(reader, writer):
     print(f"{connect} Connected")
     cmd = ''
     # Create two asynchronous tasks to send and receive
-    send = asyncio.create_task(reader.readline())
+    send = asyncio.create_task(reader.read(4096))
     receive = asyncio.create_task(connect_list[connect].get())
     # Disconnect when user requests end of service
     while cmd != 'DISCONNECT':
@@ -43,11 +43,9 @@ async def handle_client(reader, writer):
             return_when=asyncio.FIRST_COMPLETED)
         for request in requests:
             if request is send:
-                send = asyncio.create_task(reader.readline())
+                send = asyncio.create_task(reader.read(4096))
                 # Decode the request type and request id
-                message = request.result().decode().strip()
-                args = []
-                cmd, request_id, *args = message.split(' ')
+                cmd, request_id, *args = pickle.loads(request.result())
                 # Pass parameters to the request processing function
                 # Wait for processing to complete
                 result = cmd_process(cmd, request_id,

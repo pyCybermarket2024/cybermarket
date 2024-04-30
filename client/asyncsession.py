@@ -25,18 +25,15 @@ async def client_task(addr, port, message_queue, result_queue):
     # Get a message from the main process
     send = asyncio.create_task(message_queue.get())
     receive = asyncio.create_task(reader.read(4096))
-    msg = ""
-    while msg.strip() != "exit()":
-        done, pending = await asyncio.wait(
-            [send, receive],
-            return_when=asyncio.FIRST_COMPLETED
-            )
+    msg = []
+    while msg != ["exit()"]:
+        done, pending = await asyncio.wait([send, receive],
+                                           return_when=asyncio.FIRST_COMPLETED)
         for info in done:
             if info is send:
                 send = asyncio.create_task(message_queue.get())
                 msg = info.result()
-                msg += '\n'
-                writer.write(msg.encode())
+                writer.write(pickle.dumps(msg))
                 await writer.drain()
             elif info is receive:
                 receive = asyncio.create_task(reader.read(4096))
