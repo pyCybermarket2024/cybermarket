@@ -2,7 +2,7 @@
 import random
 import string
 from sqlalchemy import Column, Integer, String
-from setting import engine, Base, session
+from src.setting import engine, Base, session
 
 
 class Invitation(Base):

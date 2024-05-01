@@ -8,14 +8,18 @@ from sqlalchemy.orm import sessionmaker
 
 def get_engine():
     """Set the database engine according to the system environment."""
-    # Check the environment variables for the existence of tests
+    # Check the environment variables for the existence of tests and docstring
     testing = os.getenv("CYBERMARKET")
     if testing == "TESTING":
-        # If present, use the in-memory database
+        engine = create_engine('sqlite:///:memory:', echo=False)
+    elif testing == "DOCSTRING":
         engine = create_engine('sqlite:///:memory:', echo=False)
     else:
         # If it does not exist, use the default database
-        engine = create_engine('sqlite:///database/cybermarket.db', echo=False)
+        engine = create_engine(
+            'sqlite:///./database/cybermarket.db',
+            echo=False
+            )
     return engine
 
 

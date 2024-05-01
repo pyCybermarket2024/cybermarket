@@ -10,7 +10,7 @@ Functions:
 """
 import asyncio
 import pickle
-from cmd_process import cmd_process
+from src.cmd_process import cmd_process
 
 connect_list = {}
 
@@ -78,5 +78,7 @@ async def main():
     async with server:
         await server.serve_forever()
 
+
 # Run the main program asynchronously
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

@@ -1,3 +1,4 @@
+"""Language configuration of server information."""
 import gettext
 import locale
 
@@ -13,8 +14,10 @@ LOCALES = {
 
 
 def _(text):
+    """Call this function to obtain the language pack."""
     return LOCALES[locale.getlocale()].gettext(text)
 
 
 def ngettext(*args):
+    """Call this function to get the language convention setting."""
     return LOCALES[locale.getlocale()].ngettext(*args)

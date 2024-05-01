@@ -12,14 +12,15 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../server'))
+sys.path.insert(0, os.path.abspath('../..'))
+os.environ['CYBERMARKET'] = 'DOCSTRING'
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'cybermarket'
-copyright = '2024, Hailin Liu, Qi Tang'
-author = 'Hailin Liu, Qi Tang'
+project = 'cybermarket.server'
+copyright = '2024, Hailin Liu'
+author = 'Hailin Liu'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'
