@@ -1,6 +1,6 @@
 """Contain classes associated with database tables, and exception classes."""
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
-from src.cybermarket_server.setting import engine, Base, session
+from .setting import engine, Base, session
 from sqlalchemy.orm import relationship
 
 

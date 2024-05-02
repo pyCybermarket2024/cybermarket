@@ -121,6 +121,6 @@ def task_setup():
 def task_app():
     """Run application."""
     return {
-        'actions': ["python -m src/cybermarket_server"],
+        'actions': ["python -m src.cybermarket_server"],
         'task_dep': ['mo'],
     }
