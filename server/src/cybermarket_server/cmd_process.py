@@ -1,10 +1,10 @@
 """Accept commands from server.py and output the results to the queue."""
 import pandas as pd
-from src.model import Merchant, Client, Order, Product
-from src.model import InventoryShortage
-from src.invitation import create_ivitation, check_ivitation
-from src.setting import session, lang
-from src.lang import _
+from src.cybermarket_server.model import Merchant, Client, Order, Product
+from src.cybermarket_server.model import InventoryShortage
+from src.cybermarket_server.invitation import create_ivitation, check_ivitation
+from src.cybermarket_server.setting import session, lang
+from src.cybermarket_server.lang import _
 
 lang
 

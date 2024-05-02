@@ -2,7 +2,7 @@
 import random
 import string
 from sqlalchemy import Column, Integer, String
-from src.setting import engine, Base, session
+from src.cybermarket_server.setting import engine, Base, session
 
 
 class Invitation(Base):

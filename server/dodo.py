@@ -5,7 +5,7 @@ import glob
 from doit.tools import create_folder
 
 DOIT_CONFIG = {'default_tasks': ['setup']}
-LOCALE_DEST = 'src/locale'
+LOCALE_DEST = 'src/cybermarket_server/locale'
 
 
 def task_gitclean():
@@ -54,9 +54,9 @@ def task_mo():
                 '{}/ru_RU/LC_MESSAGES'.format(LOCALE_DEST),
             ]),
             'pybabel compile -D Chinese -l zh_CN -i ./locale/zh_CN/LC_MESSAGES\
-/Chinese.po -d {}'                                                      .format(LOCALE_DEST),
+/Chinese.po -d {}'.format(LOCALE_DEST),
             'pybabel compile -D Russian -l ru_RU -i ./locale/ru_RU/LC_MESSAGES\
-/Russian.po -d {}'                                                      .format(LOCALE_DEST),
+/Russian.po -d {}'.format(LOCALE_DEST),
         ],
         'task_dep': ['po'],
         'file_dep':
@@ -121,6 +121,6 @@ def task_setup():
 def task_app():
     """Run application."""
     return {
-        'actions': ["python -m src"],
+        'actions': ["python -m src/cybermarket_server"],
         'task_dep': ['mo'],
     }

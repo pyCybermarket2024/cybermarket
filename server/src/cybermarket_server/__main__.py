@@ -10,7 +10,7 @@ Functions:
 """
 import asyncio
 import pickle
-from src.cmd_process import cmd_process
+from src.cybermarket_server.cmd_process import cmd_process
 
 connect_list = {}
 

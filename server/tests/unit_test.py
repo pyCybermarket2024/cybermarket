@@ -1,8 +1,8 @@
 from tests import setting_unittest
 import unittest
-from src import cmd_process
+import src.cybermarket_server.cmd_process as cmd_process
 import pandas as pd
-from src import invitation
+import src.cybermarket_server.invitation as invitation
 
 setting_unittest
 

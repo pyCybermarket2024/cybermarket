@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  1.0.0\n"
 "Report-Msgid-Bugs-To: 0123liuhailin@gmail.com\n"
-"POT-Creation-Date: 2024-05-02 13:04+0300\n"
+"POT-Creation-Date: 2024-05-02 16:18+0300\n"
 "PO-Revision-Date: 2024-04-27 16:07+0300\n"
 "Last-Translator: @lhl4971 <github.com/lhl4971/>\n"
 "Language: ru_RU\n"
@@ -19,129 +19,152 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: src/cmd_process.py:27
+#: src/cybermarket_server/cmd_process.py:27
 msgid "This username is occupied"
 msgstr "Пользовательский логин занят"
 
-#: src/cmd_process.py:54
+#: src/cybermarket_server/cmd_process.py:54
 msgid "Username has been set"
 msgstr "Пользовательский логин установлен"
 
-#: src/cmd_process.py:58 src/cmd_process.py:83 src/cmd_process.py:114
-#: src/cmd_process.py:152 src/cmd_process.py:177 src/cmd_process.py:213
-#: src/cmd_process.py:245 src/cmd_process.py:273 src/cmd_process.py:298
-#: src/cmd_process.py:328 src/cmd_process.py:410 src/cmd_process.py:490
-#: src/cmd_process.py:515 src/cmd_process.py:540 src/cmd_process.py:565
-#: src/cmd_process.py:591 src/cmd_process.py:622 src/cmd_process.py:649
-#: src/cmd_process.py:674 src/cmd_process.py:708 src/cmd_process.py:733
+#: src/cybermarket_server/cmd_process.py:58
+#: src/cybermarket_server/cmd_process.py:83
+#: src/cybermarket_server/cmd_process.py:114
+#: src/cybermarket_server/cmd_process.py:152
+#: src/cybermarket_server/cmd_process.py:177
+#: src/cybermarket_server/cmd_process.py:213
+#: src/cybermarket_server/cmd_process.py:245
+#: src/cybermarket_server/cmd_process.py:273
+#: src/cybermarket_server/cmd_process.py:298
+#: src/cybermarket_server/cmd_process.py:328
+#: src/cybermarket_server/cmd_process.py:410
+#: src/cybermarket_server/cmd_process.py:490
+#: src/cybermarket_server/cmd_process.py:515
+#: src/cybermarket_server/cmd_process.py:540
+#: src/cybermarket_server/cmd_process.py:565
+#: src/cybermarket_server/cmd_process.py:591
+#: src/cybermarket_server/cmd_process.py:622
+#: src/cybermarket_server/cmd_process.py:649
+#: src/cybermarket_server/cmd_process.py:674
+#: src/cybermarket_server/cmd_process.py:708
+#: src/cybermarket_server/cmd_process.py:733
 msgid "You have not logged in or your login has timed out"
 msgstr "Вы не вошли в систему или время входа в систему истекло"
 
-#: src/cmd_process.py:79 src/cmd_process.py:561
+#: src/cybermarket_server/cmd_process.py:79
+#: src/cybermarket_server/cmd_process.py:561
 msgid "Email has been set"
 msgstr "Электронная почта установлена"
 
-#: src/cmd_process.py:106 src/cmd_process.py:614
+#: src/cybermarket_server/cmd_process.py:106
+#: src/cybermarket_server/cmd_process.py:614
 msgid "New password has been set"
 msgstr "Новый пароль установлен"
 
-#: src/cmd_process.py:110 src/cmd_process.py:148
+#: src/cybermarket_server/cmd_process.py:110
+#: src/cybermarket_server/cmd_process.py:148
 msgid "The password of the user is incorrect"
 msgstr "Пароль пользователя неверен"
 
-#: src/cmd_process.py:138
+#: src/cybermarket_server/cmd_process.py:138
 msgid "The user has been logged in, please do not log in again"
 msgstr "Пользователь уже вошел, пожалуйста, не входите снова"
 
-#: src/cmd_process.py:144
+#: src/cybermarket_server/cmd_process.py:144
 msgid "This user is logged in"
 msgstr "Пользователь вошел"
 
-#: src/cmd_process.py:173 src/cmd_process.py:511
+#: src/cybermarket_server/cmd_process.py:173
+#: src/cybermarket_server/cmd_process.py:511
 msgid "You have successfully logged out"
 msgstr "Вы успешно вышли из системы"
 
-#: src/cmd_process.py:200
+#: src/cybermarket_server/cmd_process.py:200
 msgid "The quantity of added products should be a positive integer"
 msgstr "Количество добавленных товаров должно быть положительным целым числом"
 
-#: src/cmd_process.py:204
+#: src/cybermarket_server/cmd_process.py:204
 msgid "The product you are trying to add cannot be found"
 msgstr "Товар, который вы пытаетесь добавить, не найден."
 
-#: src/cmd_process.py:209
+#: src/cybermarket_server/cmd_process.py:209
 msgid "This product has been added to the shopping cart"
 msgstr "Товар добавлен в корзину"
 
-#: src/cmd_process.py:236
+#: src/cybermarket_server/cmd_process.py:236
 msgid "This product is not in your shopping cart"
 msgstr "Этого товара нет в вашей корзине"
 
-#: src/cmd_process.py:241
+#: src/cybermarket_server/cmd_process.py:241
 msgid "This product has been removed from the shopping cart"
 msgstr "Товар был удален из корзины"
 
-#: src/cmd_process.py:266
+#: src/cybermarket_server/cmd_process.py:266
 msgid "Obtained order list"
 msgstr "Список заказов получен"
 
-#: src/cmd_process.py:268 src/cmd_process.py:354 src/cmd_process.py:379
+#: src/cybermarket_server/cmd_process.py:268
+#: src/cybermarket_server/cmd_process.py:354
+#: src/cybermarket_server/cmd_process.py:379
 msgid "storename"
 msgstr "Название магазина"
 
-#: src/cmd_process.py:268 src/cmd_process.py:379
+#: src/cybermarket_server/cmd_process.py:268
+#: src/cybermarket_server/cmd_process.py:379
 msgid "productname"
 msgstr "Название товара"
 
-#: src/cmd_process.py:269 src/cmd_process.py:380
+#: src/cybermarket_server/cmd_process.py:269
+#: src/cybermarket_server/cmd_process.py:380
 msgid "price"
 msgstr "Цена"
 
-#: src/cmd_process.py:269
+#: src/cybermarket_server/cmd_process.py:269
 msgid "quantity"
 msgstr "Количество"
 
-#: src/cmd_process.py:294
+#: src/cybermarket_server/cmd_process.py:294
 msgid "Order price obtained"
 msgstr "Стоимость заказа получена"
 
-#: src/cmd_process.py:320
+#: src/cybermarket_server/cmd_process.py:320
 msgid "Order has been checked out"
 msgstr "Заказ оплачен"
 
-#: src/cmd_process.py:354 src/cmd_process.py:380
+#: src/cybermarket_server/cmd_process.py:354
+#: src/cybermarket_server/cmd_process.py:380
 msgid "description"
 msgstr "Описание"
 
-#: src/cmd_process.py:355
+#: src/cybermarket_server/cmd_process.py:355
 msgid "email"
 msgstr "Электронная почта"
 
-#: src/cmd_process.py:377
+#: src/cybermarket_server/cmd_process.py:377
 msgid "Product list has been obtained"
 msgstr "Список товаров получен"
 
-#: src/cmd_process.py:379
+#: src/cybermarket_server/cmd_process.py:379
 msgid "product_id"
 msgstr "Код товара"
 
-#: src/cmd_process.py:380
+#: src/cybermarket_server/cmd_process.py:380
 msgid "stock"
 msgstr "в наличии"
 
-#: src/cmd_process.py:384
+#: src/cybermarket_server/cmd_process.py:384
 msgid "No store with this name found"
 msgstr "Магазин с таким названием не найден"
 
-#: src/cmd_process.py:406
+#: src/cybermarket_server/cmd_process.py:406
 msgid "Invitation code has been generated"
 msgstr "Пригласительный код создан"
 
-#: src/cmd_process.py:435
+#: src/cybermarket_server/cmd_process.py:435
 msgid "This storename is occupied"
 msgstr "Название магазина занято"
 
-#: src/cmd_process.py:450
+#: src/cybermarket_server/cmd_process.py:450
 msgid ""
 "Your invitation code cannot be verified. This invitation code may be "
 "wrong or has already been used. Please contact other merchants to request"
@@ -151,47 +174,48 @@ msgstr ""
 "быть неверным или уже использовался. Пожалуйста, свяжитесь с другими "
 "продавцами, чтобы запросить код приглашения."
 
-#: src/cmd_process.py:476
+#: src/cybermarket_server/cmd_process.py:476
 msgid "The merchant has been logged in, please do not log in again"
 msgstr "Продавец уже вошел, пожалуйста, не входите снова"
 
-#: src/cmd_process.py:482
+#: src/cybermarket_server/cmd_process.py:482
 msgid "This merchant is logged in"
 msgstr "Продавец вошел в систему"
 
-#: src/cmd_process.py:486 src/cmd_process.py:618
+#: src/cybermarket_server/cmd_process.py:486
+#: src/cybermarket_server/cmd_process.py:618
 msgid "The password of the merchant is incorrect"
 msgstr "Пароль продавца неверен"
 
-#: src/cmd_process.py:536
+#: src/cybermarket_server/cmd_process.py:536
 msgid "Storename has been set"
 msgstr "Название магазина установлено"
 
-#: src/cmd_process.py:587
+#: src/cybermarket_server/cmd_process.py:587
 msgid "Description has been set"
 msgstr "Описание установлено"
 
-#: src/cmd_process.py:645
+#: src/cybermarket_server/cmd_process.py:645
 msgid "This product has been added to the product list"
 msgstr "Продукт добавлен в список продуктов"
 
-#: src/cmd_process.py:670
+#: src/cybermarket_server/cmd_process.py:670
 msgid "This product has been deleted from the product list"
 msgstr "Товар удален из списка товаров"
 
-#: src/cmd_process.py:700
+#: src/cybermarket_server/cmd_process.py:700
 msgid "This product has been restock"
 msgstr "Этот продукт был пополнен"
 
-#: src/cmd_process.py:704
+#: src/cybermarket_server/cmd_process.py:704
 msgid "You are restocking an item that is not from this store"
 msgstr "Вы пополняете товар, которого нет в этом магазине"
 
-#: src/cmd_process.py:729
+#: src/cybermarket_server/cmd_process.py:729
 msgid "Your total profit has been obtained"
 msgstr "Ваша общая прибыль получена"
 
-#: src/cmd_process.py:790
+#: src/cybermarket_server/cmd_process.py:790
 msgid "You are trying to call an undefined method"
 msgstr "Вы пытаетесь вызвать неопределенный метод"
 
