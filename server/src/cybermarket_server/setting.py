@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 
 module_path = os.path.abspath(__file__)
 module_dir = os.path.dirname(module_path)
-db_path = os.path.join(module_dir, '/database/database.db')
+db_path = os.path.join(module_dir, 'database/cybermarket.db')
 
 
 def get_engine():
