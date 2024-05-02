@@ -6,15 +6,7 @@ from src.setting import engine, Base, session
 
 
 class Invitation(Base):
-    """
-    Store invitation codes linked to merchant's name.
-
-    Attributes:
-        id (Column): The primary key of the table.
-        merchantname (Column): The name of the merchant associated
-        with the invitation code.
-        code (Column): The unique invitation code.
-    """
+    """Store invitation codes linked to merchant's name."""
 
     __tablename__ = 'invitation'
     id = Column(Integer, primary_key=True)

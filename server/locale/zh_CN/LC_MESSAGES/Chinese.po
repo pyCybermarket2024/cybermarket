@@ -1,13 +1,13 @@
-# Chinese (Simplified, China) translations for PROJECT.
+# Chinese (Simplified, China) translations for .
 # Copyright (C) 2024 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the  project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0.0\n"
+"Project-Id-Version:  1.0.0\n"
 "Report-Msgid-Bugs-To: 0123liuhailin@gmail.com\n"
-"POT-Creation-Date: 2024-04-27 14:26+0300\n"
+"POT-Creation-Date: 2024-05-02 13:04+0300\n"
 "PO-Revision-Date: 2024-04-27 15:54+0300\n"
 "Last-Translator: @lhl4971 <github.com/lhl4971/>\n"
 "Language: zh_Hans_CN\n"
@@ -18,177 +18,176 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: server/cmd_process.py:27
+#: src/cmd_process.py:27
 msgid "This username is occupied"
 msgstr "该用户名已被占用"
 
-#: server/cmd_process.py:54
+#: src/cmd_process.py:54
 msgid "Username has been set"
 msgstr "用户名已设置"
 
-#: server/cmd_process.py:58 server/cmd_process.py:83 server/cmd_process.py:114
-#: server/cmd_process.py:152 server/cmd_process.py:177
-#: server/cmd_process.py:213 server/cmd_process.py:245
-#: server/cmd_process.py:273 server/cmd_process.py:298
-#: server/cmd_process.py:328 server/cmd_process.py:410
-#: server/cmd_process.py:490 server/cmd_process.py:515
-#: server/cmd_process.py:540 server/cmd_process.py:565
-#: server/cmd_process.py:591 server/cmd_process.py:622
-#: server/cmd_process.py:649 server/cmd_process.py:674
-#: server/cmd_process.py:709 server/cmd_process.py:734
+#: src/cmd_process.py:58 src/cmd_process.py:83 src/cmd_process.py:114
+#: src/cmd_process.py:152 src/cmd_process.py:177 src/cmd_process.py:213
+#: src/cmd_process.py:245 src/cmd_process.py:273 src/cmd_process.py:298
+#: src/cmd_process.py:328 src/cmd_process.py:410 src/cmd_process.py:490
+#: src/cmd_process.py:515 src/cmd_process.py:540 src/cmd_process.py:565
+#: src/cmd_process.py:591 src/cmd_process.py:622 src/cmd_process.py:649
+#: src/cmd_process.py:674 src/cmd_process.py:708 src/cmd_process.py:733
 msgid "You have not logged in or your login has timed out"
 msgstr "您尚未登录或登录超时"
 
-#: server/cmd_process.py:79 server/cmd_process.py:561
+#: src/cmd_process.py:79 src/cmd_process.py:561
 msgid "Email has been set"
 msgstr "邮箱已设置"
 
-#: server/cmd_process.py:106 server/cmd_process.py:614
+#: src/cmd_process.py:106 src/cmd_process.py:614
 msgid "New password has been set"
 msgstr "新密码已设置"
 
-#: server/cmd_process.py:110 server/cmd_process.py:148
+#: src/cmd_process.py:110 src/cmd_process.py:148
 msgid "The password of the user is incorrect"
 msgstr "用户密码不正确"
 
-#: server/cmd_process.py:138
+#: src/cmd_process.py:138
 msgid "The user has been logged in, please do not log in again"
 msgstr "该用户已登录，请勿再次登录"
 
-#: server/cmd_process.py:144
+#: src/cmd_process.py:144
 msgid "This user is logged in"
 msgstr "用户已登录"
 
-#: server/cmd_process.py:173 server/cmd_process.py:511
+#: src/cmd_process.py:173 src/cmd_process.py:511
 msgid "You have successfully logged out"
 msgstr "您已成功退出"
 
-#: server/cmd_process.py:200
+#: src/cmd_process.py:200
 msgid "The quantity of added products should be a positive integer"
 msgstr "添加的产品数量应为正整数"
 
-#: server/cmd_process.py:204
+#: src/cmd_process.py:204
 msgid "The product you are trying to add cannot be found"
 msgstr "找不到您尝试添加的产品"
 
-#: server/cmd_process.py:209
+#: src/cmd_process.py:209
 msgid "This product has been added to the shopping cart"
 msgstr "该产品已添加至购物车"
 
-#: server/cmd_process.py:236
+#: src/cmd_process.py:236
 msgid "This product is not in your shopping cart"
 msgstr "该产品不在您的购物车中"
 
-#: server/cmd_process.py:241
+#: src/cmd_process.py:241
 msgid "This product has been removed from the shopping cart"
 msgstr "该产品已从购物车中删除"
 
-#: server/cmd_process.py:266
+#: src/cmd_process.py:266
 msgid "Obtained order list"
 msgstr "已获取订单列表"
 
-#: server/cmd_process.py:268 server/cmd_process.py:354
-#: server/cmd_process.py:379
+#: src/cmd_process.py:268 src/cmd_process.py:354 src/cmd_process.py:379
 msgid "storename"
 msgstr "店铺名称"
 
-#: server/cmd_process.py:268 server/cmd_process.py:379
+#: src/cmd_process.py:268 src/cmd_process.py:379
 msgid "productname"
 msgstr "产品名称"
 
-#: server/cmd_process.py:269 server/cmd_process.py:380
+#: src/cmd_process.py:269 src/cmd_process.py:380
 msgid "price"
 msgstr "价格"
 
-#: server/cmd_process.py:269
+#: src/cmd_process.py:269
 msgid "quantity"
 msgstr "数量"
 
-#: server/cmd_process.py:294
+#: src/cmd_process.py:294
 msgid "Order price obtained"
 msgstr "订单价格已获取"
 
-#: server/cmd_process.py:320
+#: src/cmd_process.py:320
 msgid "Order has been checked out"
 msgstr "订单已结账"
 
-#: server/cmd_process.py:354 server/cmd_process.py:380
+#: src/cmd_process.py:354 src/cmd_process.py:380
 msgid "description"
 msgstr "描述"
 
-#: server/cmd_process.py:355
+#: src/cmd_process.py:355
 msgid "email"
 msgstr "电子邮件"
 
-#: server/cmd_process.py:377
+#: src/cmd_process.py:377
 msgid "Product list has been obtained"
 msgstr "已获取产品清单"
 
-#: server/cmd_process.py:379
+#: src/cmd_process.py:379
 msgid "product_id"
 msgstr "产品编号"
 
-#: server/cmd_process.py:380
+#: src/cmd_process.py:380
 msgid "stock"
 msgstr "库存数量"
 
-#: server/cmd_process.py:384
+#: src/cmd_process.py:384
 msgid "No store with this name found"
 msgstr "未找到该名称的商店"
 
-#: server/cmd_process.py:406
+#: src/cmd_process.py:406
 msgid "Invitation code has been generated"
 msgstr "邀请码已生成"
 
-#: server/cmd_process.py:435
+#: src/cmd_process.py:435
 msgid "This storename is occupied"
 msgstr "该店名已被占用"
 
-#: server/cmd_process.py:450
-msgid "Your invitation code cannot be verified. This invitation code may be wrong or has already been used. Please contact other merchants to request the invitation code."
+#: src/cmd_process.py:450
+msgid ""
+"Your invitation code cannot be verified. This invitation code may be "
+"wrong or has already been used. Please contact other merchants to request"
+" the invitation code."
 msgstr "无法验证您的邀请码。 该邀请码可能有误或已被使用。 请联系其他商户索取邀请码。"
 
-#: server/cmd_process.py:476
+#: src/cmd_process.py:476
 msgid "The merchant has been logged in, please do not log in again"
 msgstr "商户已登录，请勿再次登录"
 
-#: server/cmd_process.py:482
+#: src/cmd_process.py:482
 msgid "This merchant is logged in"
 msgstr "该商户已登录"
 
-#: server/cmd_process.py:486 server/cmd_process.py:618
+#: src/cmd_process.py:486 src/cmd_process.py:618
 msgid "The password of the merchant is incorrect"
 msgstr "商户密码不正确"
 
-#: server/cmd_process.py:536
+#: src/cmd_process.py:536
 msgid "Storename has been set"
 msgstr "店铺名称已设定"
 
-#: server/cmd_process.py:587
+#: src/cmd_process.py:587
 msgid "Description has been set"
 msgstr "描述已设定"
 
-#: server/cmd_process.py:645
+#: src/cmd_process.py:645
 msgid "This product has been added to the product list"
 msgstr "该产品已添加到产品列表中"
 
-#: server/cmd_process.py:670
+#: src/cmd_process.py:670
 msgid "This product has been deleted from the product list"
 msgstr "该产品已从产品列表中删除"
 
-#: server/cmd_process.py:700
+#: src/cmd_process.py:700
 msgid "This product has been restock"
 msgstr "该产品已补货"
 
-#: server/cmd_process.py:704
+#: src/cmd_process.py:704
 msgid "You are restocking an item that is not from this store"
 msgstr "您正在补货的商品不是来自该商店"
 
-#: server/cmd_process.py:729
+#: src/cmd_process.py:729
 msgid "Your total profit has been obtained"
 msgstr "您的总利润已获取"
 
-#: server/cmd_process.py:790
+#: src/cmd_process.py:790
 msgid "You are trying to call an undefined method"
 msgstr "您正在尝试调用未定义的方法"
 

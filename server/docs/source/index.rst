@@ -8,7 +8,9 @@ Welcome to cybermarket.server's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   
+
+   modules
 
 
 

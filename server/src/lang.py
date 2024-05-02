@@ -1,14 +1,19 @@
 """Language configuration of server information."""
+import os
 import gettext
 import locale
+
+module_path = os.path.abspath(__file__)
+module_dir = os.path.dirname(module_path)
+locale_path = os.path.join(module_dir, 'locale')
 
 LOCALES = {
     ("en_US", "UTF-8"): gettext.NullTranslations(),
     ("zh_CN", "UTF-8"): gettext.translation(
-        "Chinese", "locale", ["zh_CN"]
+        "Chinese", locale_path, ["zh_CN"]
         ),
     ("ru_RU", "UTF-8"): gettext.translation(
-        "Russian", "locale", ["ru_RU"]
+        "Russian", locale_path, ["ru_RU"]
         )
 }
 
