@@ -1,5 +1,5 @@
 [project]
-name = "cybermarket-server"
+name = "cybermarket_server"
 version = "1.0.0"
 authors = [
     {name = "Hailin Liu", email = "0123liuhailin@gmail.com"},
@@ -23,6 +23,6 @@ requires = ["Sphinx", "build", "coverage", "doit", "flake8", "pydocstyle", "Babe
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.package-dir]
-"cybermarket-server" = "src/cybermarket_server"
+"cybermarket_server" = "src/cybermarket_server"
 
 [tool.setuptools.package-data]

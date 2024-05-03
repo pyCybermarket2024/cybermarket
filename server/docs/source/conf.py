@@ -18,7 +18,7 @@ os.environ['CYBERMARKET'] = 'DOCSTRING'
 
 # -- Project information -----------------------------------------------------
 
-project = 'cybermarket_server'
+project = 'cybermarket-server'
 copyright = '2024, Hailin Liu'
 author = 'Hailin Liu'
 
