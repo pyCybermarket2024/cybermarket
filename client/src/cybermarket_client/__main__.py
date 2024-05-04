@@ -1,10 +1,10 @@
-from asyncsession import client_task
+from .asyncsession import client_task
 import sys
 import asyncio
 import qasync
 from PyQt5.QtWidgets import (QApplication, QWidget, QTabWidget, QVBoxLayout, QPushButton,
                              QLineEdit, QMessageBox, QFormLayout)
-from lang import _
+from .lang import _
 
 class LoginWindow(QWidget):
     """A class representing the login and registration window."""
