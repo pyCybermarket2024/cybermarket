@@ -4,7 +4,7 @@ import asyncio
 import qasync
 from PyQt5.QtWidgets import (QApplication, QWidget, QTabWidget, QVBoxLayout, QPushButton,
                              QLineEdit, QMessageBox, QFormLayout)
-
+from lang import _
 
 class LoginWindow(QWidget):
     """A class representing the login and registration window."""
@@ -27,7 +27,7 @@ class LoginWindow(QWidget):
 
     def initUI(self):
         """Initializes the user interface."""
-        self.setWindowTitle('Login and Registration')
+        self.setWindowTitle(_('Login and Registration'))
         self.setGeometry(100, 100, 400, 300)
         layout = QVBoxLayout(self)
 
@@ -39,10 +39,10 @@ class LoginWindow(QWidget):
         user_login_tab = QWidget()
         user_register_tab = QWidget()
 
-        tab_widget.addTab(merchant_login_tab, 'Merchant Login')
-        tab_widget.addTab(merchant_register_tab, 'Merchant Register')
-        tab_widget.addTab(user_login_tab, 'User Login')
-        tab_widget.addTab(user_register_tab, 'User Register')
+        tab_widget.addTab(merchant_login_tab, _('Merchant Login'))
+        tab_widget.addTab(merchant_register_tab, _('Merchant Register'))
+        tab_widget.addTab(user_login_tab, _('User Login'))
+        tab_widget.addTab(user_register_tab, _('User Register'))
 
         self.setupMerchantLogin(merchant_login_tab)
         self.setupMerchantRegister(merchant_register_tab)
@@ -60,11 +60,11 @@ class LoginWindow(QWidget):
         username = QLineEdit()
         password = QLineEdit()
         password.setEchoMode(QLineEdit.Password)
-        login_button = QPushButton('Login')
+        login_button = QPushButton(_('Login'))
         login_button.clicked.connect(lambda: self.send_login(
             'merchant', username.text(), password.text()))
-        layout.addRow('Username', username)
-        layout.addRow('Password', password)
+        layout.addRow(_('Username'), username)
+        layout.addRow(_('Password'), password)
         layout.addRow(login_button)
 
     def setupMerchantRegister(self, tab):
@@ -83,18 +83,18 @@ class LoginWindow(QWidget):
         self.invite_code = QLineEdit()
 
         password.setEchoMode(QLineEdit.Password)
-        register_button = QPushButton('Register')
+        register_button = QPushButton(_('Register'))
         register_button.clicked.connect(lambda: self.send_register(
             'merchant', username.text(), description_store.text(), email.text(),
             password.text(), inviter_name.text(), self.invite_code.text()))
-        regist_code_button = QPushButton('Request Invitation Code')
+        regist_code_button = QPushButton(_('Request Invitation Code'))
         regist_code_button.clicked.connect(lambda: self.create_register_code())
-        layout.addRow('Username', username)
-        layout.addRow('Store Description', description_store)
-        layout.addRow('Email', email)
-        layout.addRow('Password', password)
-        layout.addRow('Inviter', inviter_name)
-        layout.addRow('Invitation Code', self.invite_code)
+        layout.addRow(_('Username'), username)
+        layout.addRow(_('Store Description'), description_store)
+        layout.addRow(_('Email'), email)
+        layout.addRow(_('Password'), password)
+        layout.addRow(_('Inviter'), inviter_name)
+        layout.addRow(_('Invitation Code'), self.invite_code)
         layout.addRow(register_button)
         layout.addRow(regist_code_button)
 
@@ -109,11 +109,11 @@ class LoginWindow(QWidget):
         username = QLineEdit()
         password = QLineEdit()
         password.setEchoMode(QLineEdit.Password)
-        login_button = QPushButton('Login')
+        login_button = QPushButton(_('Login'))
         login_button.clicked.connect(
             lambda: self.send_login('user', username.text(), password.text()))
-        layout.addRow('Username', username)
-        layout.addRow('Password', password)
+        layout.addRow(_('Username'), username)
+        layout.addRow(_('Password'), password)
         layout.addRow(login_button)
 
     def setupUserRegister(self, tab):
@@ -128,14 +128,14 @@ class LoginWindow(QWidget):
         email = QLineEdit()
         password = QLineEdit()
         password.setEchoMode(QLineEdit.Password)
-        register_button = QPushButton('Register')
+        register_button = QPushButton(_('Register'))
         register_button.clicked.connect(
             lambda: self.send_register('user', username.text(), None, email.text(),
                                        password.text(), None, None))
 
-        layout.addRow('Username', username)
-        layout.addRow('Email', email)
-        layout.addRow('Password', password)
+        layout.addRow(_('Username'), username)
+        layout.addRow(_('Email'), email)
+        layout.addRow(_('Password'), password)
         layout.addRow(register_button)
 
     @qasync.asyncSlot()
@@ -158,10 +158,10 @@ class LoginWindow(QWidget):
         code = result[1]
         if len(result) == 1:
             warning = QMessageBox.Warning(self)
-            warning.setWindowTitle('Server Warning')
+            warning.setWindowTitle(_('Server Warning'))
             warning.setText(reply)
         elif len(result) == 2:
-            QMessageBox.question(self, 'Confirmation', f'Invitation Code Obtained: {code}')
+            QMessageBox.question(self, _('Confirmation'), _('Invitation Code Obtained:') + str(code))
 
     @qasync.asyncSlot()
     async def send_login(self, role, username, password):
@@ -183,7 +183,7 @@ class LoginWindow(QWidget):
                        str(password)]
         asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
-        QMessageBox.question(self, 'Server Message', result[0])
+        QMessageBox.question(self, _('Server Message'), result[0])
 
     @qasync.asyncSlot()
     async def send_register(self, role, username, description, email, password,
@@ -211,7 +211,7 @@ class LoginWindow(QWidget):
                        str(inviter_name), str(invite_code)]
         asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
-        QMessageBox.question(self, 'Server Message', result[0])
+        QMessageBox.question(self, _('Server Message'), result[0])
 
     def closeEvent(self, event):
         """Handles the close event."""
