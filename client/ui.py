@@ -2,7 +2,7 @@ from asyncsession import client_task
 import sys
 import asyncio
 import qasync
-from PyQt5.QtWidgets import (QApplication, QWidget, QTabWidget,QVBoxLayout, QPushButton,
+from PyQt5.QtWidgets import (QApplication, QWidget, QTabWidget, QVBoxLayout, QPushButton,
                              QLineEdit, QMessageBox, QFormLayout)
 
 
@@ -23,7 +23,7 @@ class LoginWindow(QWidget):
         self.initUI()
         self.message_queue = message_queue
         self.result_queue = result_queue
-        self.invite_cod = None
+        self.invite_code = None
 
     def initUI(self):
         """Initializes the user interface."""
@@ -80,13 +80,13 @@ class LoginWindow(QWidget):
         email = QLineEdit()
         password = QLineEdit()
         inviter_name = QLineEdit()
-        self.invite_cod = QLineEdit()
+        self.invite_code = QLineEdit()
 
         password.setEchoMode(QLineEdit.Password)
         register_button = QPushButton('Register')
         register_button.clicked.connect(lambda: self.send_register(
             'merchant', username.text(), description_store.text(), email.text(),
-            password.text(), inviter_name.text(), self.invite_cod.text()))
+            password.text(), inviter_name.text(), self.invite_code.text()))
         regist_code_button = QPushButton('Request Invitation Code')
         regist_code_button.clicked.connect(lambda: self.create_register_code())
         layout.addRow('Username', username)
@@ -94,7 +94,7 @@ class LoginWindow(QWidget):
         layout.addRow('Email', email)
         layout.addRow('Password', password)
         layout.addRow('Inviter', inviter_name)
-        layout.addRow('Invitation Code', self.invite_cod)
+        layout.addRow('Invitation Code', self.invite_code)
         layout.addRow(register_button)
         layout.addRow(regist_code_button)
 
@@ -151,18 +151,17 @@ class LoginWindow(QWidget):
         """
         counter_str = str(self.send_message_counter)
         self.send_message_counter += 1
-        message = "MERCHANT_CREATE_INVITATION " + counter_str
+        message = f"MERCHANT_CREATE_INVITATION {counter_str}"
         asyncio.create_task(self.message_queue.put(message))
         result = await asyncio.create_task(self.result_queue.get())
         reply = result[0]
         code = result[1]
-        print(result)
         if len(result) == 1:
             warning = QMessageBox.Warning(self)
             warning.setWindowTitle('Server Warning')
             warning.setText(reply)
         elif len(result) == 2:
-            QMessageBox.question(self, 'Confirmation', 'Invitation Code Obtained:' + code)
+            QMessageBox.question(self, 'Confirmation', f'Invitation Code Obtained: {code}')
 
     @qasync.asyncSlot()
     async def send_login(self, role, username, password):
