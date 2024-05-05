@@ -16,7 +16,7 @@ class TestClientCreate(unittest.TestCase):
 
     def test_0(self):
         result = cmd_process.client_create(
-            "0", "127.0.0.1:33001", "qangqi",
+            "0", "127.0.0.1:33001", "tangqi",
             "t390697002@gmail.com", "123456"
             )
         expected_result = ["0 201 Created"]
@@ -373,6 +373,7 @@ class TestClientGetItems(unittest.TestCase):
         )
         data = {
             'storename': ["Cybermarket", "Cybermarket"],
+            'product_id': [1, 2],
             'productname': ['router', 'switch'],
             'price': [100.0, 200.0],
             'quantity': [5, 5]

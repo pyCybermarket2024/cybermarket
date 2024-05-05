@@ -265,7 +265,7 @@ def client_get_items(request_id, connected_address, *args):
     if result:
         msg = _("Obtained order list")
         reply = str(request_id) + " 200 OK: " + msg
-        column_labels = [_('storename'), _('productname'),
+        column_labels = [_('storename'), _("product_id"), _('productname'),
                          _('price'), _('quantity')]
         df = pd.DataFrame(result.get_items(), columns=column_labels)
         return [reply, df]

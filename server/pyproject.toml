@@ -1,6 +1,6 @@
 [project]
 name = "cybermarket_server"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
     {name = "Hailin Liu", email = "0123liuhailin@gmail.com"},
 ]
@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["Sphinx", "build", "coverage", "doit", "flake8", "pydocstyle", "Babel", "setuptools>=61.0", "wheel"]
+requires = ["Sphinx", "build", "coverage", "doit", "flake8", "pydocstyle", "Babel", "setuptools>=61.0", "unittest", "wheel"]
 
 build-backend = "setuptools.build_meta"
 

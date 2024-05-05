@@ -191,6 +191,7 @@ class Client(Base):
         """
         result = session.query(
             Merchant.storename,
+            Product.productId,
             Product.productname,
             Product.price,
             Order.quantity
@@ -213,7 +214,7 @@ class Client(Base):
         sum_price = 0
         item_list = self.get_items()
         for item in item_list:
-            sum_price += item[2]*item[3]
+            sum_price += item[3]*item[4]
         return sum_price
 
     def checkout_item(self):
