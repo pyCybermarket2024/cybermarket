@@ -14,8 +14,10 @@ classifiers = [
 ]
 dependencies = [
     "pandas==2.2.1",
-    "PyQt5==5.12",
-    "loguru==0.6.0"
+    "PyQt5== 5.15.9",
+    "loguru==0.6.0",
+    "python-dotenv==0.21.0",
+    "click==8.1.7"
 ]
 
 [build-system]
