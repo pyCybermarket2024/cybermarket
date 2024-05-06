@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["Sphinx", "build", "coverage", "doit", "flake8", "pydocstyle", "Babel", "setuptools>=61.0", "unittest", "wheel"]
+requires = ["Sphinx", "build", "coverage", "doit", "flake8", "pydocstyle", "Babel", "setuptools>=61.0", "wheel"]
 
 build-backend = "setuptools.build_meta"
 
