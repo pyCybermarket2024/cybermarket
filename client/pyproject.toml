@@ -1,0 +1,29 @@
+[project]
+name = "cybermarket_client"
+version = "1.0.0"
+authors = [
+    {name = "Qi Tang", email = "t390697002@gmail.com"},
+]
+description = "A client that simulates a supermarket, has a visual user and merchant interface, allowing customers to purchase goods and merchants to manage goods."
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["shopping", "online-market"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "pandas==2.2.1",
+    "PyQt5==5.12",
+    "loguru==0.6.0"
+]
+
+[build-system]
+requires = ["Sphinx", "build", "coverage", "doit", "flake8", "pydocstyle", "Babel", "setuptools>=61.0", "wheel"]
+
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-dir]
+"cybermarket_client" = "src/cybermarket_client"
+
+[tool.setuptools.package-data]
