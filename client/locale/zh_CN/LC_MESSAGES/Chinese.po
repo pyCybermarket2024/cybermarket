@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-04 23:44+0300\n"
+"POT-Creation-Date: 2024-05-06 16:21+0300\n"
 "PO-Revision-Date: 2024-05-04 23:51+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -18,75 +18,179 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: ui.py:30
-msgid "Login and Registration"
-msgstr "登录和注册"
+#: src/cybermarket_client/logic.py:98
+#, fuzzy
+msgid "Total amount:"
+msgstr "数量:"
 
-#: ui.py:42
-msgid "Merchant Login"
-msgstr "商家登录"
+#: src/cybermarket_client/logic.py:118 src/cybermarket_client/logic.py:127
+msgid "Add to cart"
+msgstr "添加至购物车"
 
-#: ui.py:43
-msgid "Merchant Register"
-msgstr "商家注册"
+#: src/cybermarket_client/logic.py:118
+msgid "Please enter the quantity:"
+msgstr "请输入数量:"
 
-#: ui.py:44
-msgid "User Login"
-msgstr "用户登录"
+#: src/cybermarket_client/logic.py:203 src/cybermarket_client/ui.py:219
+msgid "Replenishment"
+msgstr "补货"
 
-#: ui.py:45
-msgid "User Register"
-msgstr "用户登录"
+#: src/cybermarket_client/logic.py:203
+msgid "Please enter the replenishment quantity:"
+msgstr "请输入补货数量:"
 
-#: ui.py:63 ui.py:112
-msgid "Login"
-msgstr "登录"
+#: src/cybermarket_client/logic.py:239
+msgid "Your invitation code is:"
+msgstr "您的邀请码为:"
 
-#: ui.py:66 ui.py:92 ui.py:115 ui.py:136
-msgid "Username"
-msgstr "用户名"
+#: src/cybermarket_client/request.py:25 src/cybermarket_client/ui.py:303
+msgid "Cancel"
+msgstr "取消"
 
-#: ui.py:67 ui.py:95 ui.py:116 ui.py:138
-msgid "Password"
-msgstr "密码"
+#: src/cybermarket_client/settings.py:19
+msgid "Cybermarket"
+msgstr "赛博超市"
 
-#: ui.py:86 ui.py:131
-msgid "Register"
-msgstr "注册"
+#: src/cybermarket_client/ui.py:38
+msgid "Product name:"
+msgstr "商品名称:"
 
-#: ui.py:90
-msgid "Request Invitation Code"
-msgstr "申请邀请码"
+#: src/cybermarket_client/ui.py:39
+msgid "Amount:"
+msgstr "数量:"
 
-#: ui.py:93
-msgid "Store Description"
+#: src/cybermarket_client/ui.py:40 src/cybermarket_client/ui.py:99
+#, fuzzy
+msgid "Description:"
 msgstr "商店描述"
 
-#: ui.py:94 ui.py:137
-msgid "Email"
+#: src/cybermarket_client/ui.py:96
+#, fuzzy
+msgid "Username:"
+msgstr "用户名"
+
+#: src/cybermarket_client/ui.py:97
+#, fuzzy
+msgid "Password:"
+msgstr "密码"
+
+#: src/cybermarket_client/ui.py:98
+#, fuzzy
+msgid "Email:"
 msgstr "电子邮箱"
 
-#: ui.py:96
-msgid "Inviter"
-msgstr "邀请人"
-
-#: ui.py:97
-msgid "Invitation Code"
-msgstr "邀请码"
-
-#: ui.py:161
-msgid "Server Warning"
-msgstr "服务器警告"
-
-#: ui.py:164
-msgid "Confirmation"
+#: src/cybermarket_client/ui.py:131
+#, fuzzy
+msgid "Update Information"
 msgstr "确认"
 
-#: ui.py:164
-msgid "Invitation Code Obtained:"
-msgstr "邀请码已获取："
+#: src/cybermarket_client/ui.py:148
+msgid "Operation canceled."
+msgstr "操作已取消."
 
-#: ui.py:186 ui.py:214
-msgid "Server Message"
-msgstr "来自服务器的消息"
+#: src/cybermarket_client/ui.py:190
+msgid "ProductId"
+msgstr "商品ID"
+
+#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:201
+#, fuzzy
+msgid "Store Name"
+msgstr "用户名"
+
+#: src/cybermarket_client/ui.py:190
+msgid "Product Name"
+msgstr "商品名称"
+
+#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:219
+msgid "Price"
+msgstr "价值"
+
+#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:208
+msgid "quantity"
+msgstr "数量"
+
+#: src/cybermarket_client/ui.py:190
+msgid "operate"
+msgstr "操作"
+
+#: src/cybermarket_client/ui.py:208
+msgid "id"
+msgstr "id"
+
+#: src/cybermarket_client/ui.py:208
+#, fuzzy
+msgid "Name"
+msgstr "用户名"
+
+#: src/cybermarket_client/ui.py:208
+#, fuzzy
+msgid "description"
+msgstr "商店描述"
+
+#: src/cybermarket_client/ui.py:208
+msgid "Whether to purchase more"
+msgstr "是否加购"
+
+#: src/cybermarket_client/ui.py:219
+msgid "productId"
+msgstr "商品id"
+
+#: src/cybermarket_client/ui.py:219
+#, fuzzy
+msgid "Merchant name"
+msgstr "商家登录"
+
+#: src/cybermarket_client/ui.py:219
+msgid "Product name"
+msgstr "商品名称"
+
+#: src/cybermarket_client/ui.py:219
+#, fuzzy
+msgid "Description"
+msgstr "商店描述"
+
+#: src/cybermarket_client/ui.py:219
+msgid "Quantity"
+msgstr "数量"
+
+#: src/cybermarket_client/ui.py:219
+msgid "Delete"
+msgstr "删除"
+
+#~ msgid "Login and Registration"
+#~ msgstr "登录和注册"
+
+#~ msgid "Merchant Register"
+#~ msgstr "商家注册"
+
+#~ msgid "User Login"
+#~ msgstr "用户登录"
+
+#~ msgid "User Register"
+#~ msgstr "用户登录"
+
+#~ msgid "Login"
+#~ msgstr "登录"
+
+#~ msgid "Register"
+#~ msgstr "注册"
+
+#~ msgid "Request Invitation Code"
+#~ msgstr "申请邀请码"
+
+#~ msgid "Inviter"
+#~ msgstr "邀请人"
+
+#~ msgid "Invitation Code"
+#~ msgstr "邀请码"
+
+#~ msgid "Server Warning"
+#~ msgstr "服务器警告"
+
+#~ msgid "Invitation Code Obtained:"
+#~ msgstr "邀请码已获取："
+
+#~ msgid "Server Message"
+#~ msgstr "来自服务器的消息"
 

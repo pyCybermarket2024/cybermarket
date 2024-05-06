@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-04 23:44+0300\n"
+"POT-Creation-Date: 2024-05-06 16:21+0300\n"
 "PO-Revision-Date: 2024-05-04 23:52+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
@@ -19,75 +19,179 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: ui.py:30
-msgid "Login and Registration"
-msgstr "Вход и регистрация"
+#: src/cybermarket_client/logic.py:98
+#, fuzzy
+msgid "Total amount:"
+msgstr "Количество:"
 
-#: ui.py:42
-msgid "Merchant Login"
-msgstr "Вход продавцов"
+#: src/cybermarket_client/logic.py:118 src/cybermarket_client/logic.py:127
+msgid "Add to cart"
+msgstr "Добавить в корзину"
 
-#: ui.py:43
-msgid "Merchant Register"
-msgstr "Торговый реестр"
+#: src/cybermarket_client/logic.py:118
+msgid "Please enter the quantity:"
+msgstr "Пожалуйста, введите количество:"
 
-#: ui.py:44
-msgid "User Login"
-msgstr "Логин пользователя"
+#: src/cybermarket_client/logic.py:203 src/cybermarket_client/ui.py:219
+msgid "Replenishment"
+msgstr "Пополнение"
 
-#: ui.py:45
-msgid "User Register"
-msgstr "Регистрация пользователя"
+#: src/cybermarket_client/logic.py:203
+msgid "Please enter the replenishment quantity:"
+msgstr "Введите сумму пополнения:"
 
-#: ui.py:63 ui.py:112
-msgid "Login"
-msgstr "войти"
+#: src/cybermarket_client/logic.py:239
+msgid "Your invitation code is:"
+msgstr "Ваш код приглашения:"
 
-#: ui.py:66 ui.py:92 ui.py:115 ui.py:136
-msgid "Username"
-msgstr "логин пользователя"
+#: src/cybermarket_client/request.py:25 src/cybermarket_client/ui.py:303
+msgid "Cancel"
+msgstr "Отмена"
 
-#: ui.py:67 ui.py:95 ui.py:116 ui.py:138
-msgid "Password"
-msgstr "Пароль"
+#: src/cybermarket_client/settings.py:19
+msgid "Cybermarket"
+msgstr "Кибермаркет"
 
-#: ui.py:86 ui.py:131
-msgid "Register"
-msgstr "регистрация"
+#: src/cybermarket_client/ui.py:38
+msgid "Product name:"
+msgstr "Наименование товара:"
 
-#: ui.py:90
-msgid "Request Invitation Code"
-msgstr "Запросить пригласительный код"
+#: src/cybermarket_client/ui.py:39
+msgid "Amount:"
+msgstr "Количество:"
 
-#: ui.py:93
-msgid "Store Description"
+#: src/cybermarket_client/ui.py:40 src/cybermarket_client/ui.py:99
+#, fuzzy
+msgid "Description:"
 msgstr "Описание магазина"
 
-#: ui.py:94 ui.py:137
-msgid "Email"
+#: src/cybermarket_client/ui.py:96
+#, fuzzy
+msgid "Username:"
+msgstr "логин пользователя"
+
+#: src/cybermarket_client/ui.py:97
+#, fuzzy
+msgid "Password:"
+msgstr "Пароль"
+
+#: src/cybermarket_client/ui.py:98
+#, fuzzy
+msgid "Email:"
 msgstr "Электронная почта"
 
-#: ui.py:96
-msgid "Inviter"
-msgstr "Приглашающий"
-
-#: ui.py:97
-msgid "Invitation Code"
-msgstr "Код приглашения"
-
-#: ui.py:161
-msgid "Server Warning"
-msgstr "Предупреждение сервера"
-
-#: ui.py:164
-msgid "Confirmation"
+#: src/cybermarket_client/ui.py:131
+#, fuzzy
+msgid "Update Information"
 msgstr "Подтверждение"
 
-#: ui.py:164
-msgid "Invitation Code Obtained:"
-msgstr "Получен код приглашения:"
+#: src/cybermarket_client/ui.py:148
+msgid "Operation canceled."
+msgstr "Операция отменена"
 
-#: ui.py:186 ui.py:214
-msgid "Server Message"
-msgstr "Сообщение сервера"
+#: src/cybermarket_client/ui.py:190
+msgid "ProductId"
+msgstr "Идантификационный номер продукта"
+
+#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:201
+#, fuzzy
+msgid "Store Name"
+msgstr "логин пользователя"
+
+#: src/cybermarket_client/ui.py:190
+msgid "Product Name"
+msgstr "наименование товара"
+
+#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:219
+msgid "Price"
+msgstr "Цена"
+
+#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:208
+msgid "quantity"
+msgstr "количество"
+
+#: src/cybermarket_client/ui.py:190
+msgid "operate"
+msgstr "действовать"
+
+#: src/cybermarket_client/ui.py:208
+msgid "id"
+msgstr "id"
+
+#: src/cybermarket_client/ui.py:208
+#, fuzzy
+msgid "Name"
+msgstr "логин пользователя"
+
+#: src/cybermarket_client/ui.py:208
+#, fuzzy
+msgid "description"
+msgstr "Описание магазина"
+
+#: src/cybermarket_client/ui.py:208
+msgid "Whether to purchase more"
+msgstr "Стоит ли покупать больше"
+
+#: src/cybermarket_client/ui.py:219
+msgid "productId"
+msgstr "Код товара"
+
+#: src/cybermarket_client/ui.py:219
+#, fuzzy
+msgid "Merchant name"
+msgstr "Вход продавцов"
+
+#: src/cybermarket_client/ui.py:219
+msgid "Product name"
+msgstr "Наименование товара"
+
+#: src/cybermarket_client/ui.py:219
+#, fuzzy
+msgid "Description"
+msgstr "Описание магазина"
+
+#: src/cybermarket_client/ui.py:219
+msgid "Quantity"
+msgstr "Количество"
+
+#: src/cybermarket_client/ui.py:219
+msgid "Delete"
+msgstr "Удалить"
+
+#~ msgid "Login and Registration"
+#~ msgstr "Вход и регистрация"
+
+#~ msgid "Merchant Register"
+#~ msgstr "Торговый реестр"
+
+#~ msgid "User Login"
+#~ msgstr "Логин пользователя"
+
+#~ msgid "User Register"
+#~ msgstr "Регистрация пользователя"
+
+#~ msgid "Login"
+#~ msgstr "войти"
+
+#~ msgid "Register"
+#~ msgstr "регистрация"
+
+#~ msgid "Request Invitation Code"
+#~ msgstr "Запросить пригласительный код"
+
+#~ msgid "Inviter"
+#~ msgstr "Приглашающий"
+
+#~ msgid "Invitation Code"
+#~ msgstr "Код приглашения"
+
+#~ msgid "Server Warning"
+#~ msgstr "Предупреждение сервера"
+
+#~ msgid "Invitation Code Obtained:"
+#~ msgstr "Получен код приглашения:"
+
+#~ msgid "Server Message"
+#~ msgstr "Сообщение сервера"
 

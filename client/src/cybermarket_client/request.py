@@ -1,14 +1,12 @@
 import socket
 import pickle
 import time
-
 from PyQt5.QtWidgets import QMessageBox
 from loguru import logger
 from threading import Thread as AsyncThread
-
 from settings import TITLE, SERVER_HOST, SERVER_PORT
 from ui import CustomMessageBox
-
+from lang import _
 
 def pop_frame(msg):
     """Display a frame with a message.
@@ -24,8 +22,8 @@ def pop_frame(msg):
     msg_box.setText(msg)
     msg_box.addButton(QMessageBox.Yes)
     yes_button = msg_box.button(QMessageBox.Yes)
-    yes_button.setText('Cancel')
-    msg_box.exec_()  # Display the message box and wait for user response
+    yes_button.setText(_('Cancel'))
+    msg_box.exec_() 
 
 
 def request(cmd, *args, **kwargs):

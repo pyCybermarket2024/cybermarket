@@ -6,7 +6,7 @@ from PyQt5.uic import loadUi
 
 from settings import LOGO_PATH, TITLE, USER_LOGIN, MERCHANT_LOGIN, user_register, merchant_register, index, \
     user_shopping_cart, user_update, merchant_index_ui
-
+from lang import _
 
 class CustomMessageBox(QMessageBox):
     '''Custom message box with window icon.'''
@@ -35,9 +35,9 @@ class ThreeFieldsDialog(QDialog):
     def initUI(self):
         '''Initialize the UI components of the dialog window.'''
         layout = QVBoxLayout()
-        label_a = QLabel("Product name:")
-        label_b = QLabel("Amount:")
-        label_c = QLabel("Description:")
+        label_a = QLabel(_("Product name:"))
+        label_b = QLabel(_("Amount:"))
+        label_c = QLabel(_("Description:"))
         self.input_a = QLineEdit()
         self.input_b = QLineEdit()
         self.input_c = QLineEdit()
@@ -93,10 +93,10 @@ class UpdatemerchantThreeFieldsDialog(QDialog):
         layout = QVBoxLayout()
 
 
-        label_a = QLabel("Username:")
-        label_b = QLabel("Password:")
-        label_c = QLabel("Email:")
-        label_d = QLabel("Description:")
+        label_a = QLabel(_("Username:"))
+        label_b = QLabel(_("Password:"))
+        label_c = QLabel(_("Email:"))
+        label_d = QLabel(_("Description:"))
 
         self.input_a = QLineEdit()
         self.input_b = QLineEdit()
@@ -128,7 +128,7 @@ class UpdatemerchantThreeFieldsDialog(QDialog):
         layout.addWidget(button_box)
 
         self.setLayout(layout)
-        self.setWindowTitle('Update Information')
+        self.setWindowTitle(_('Update Information'))
 
         self.setFixedWidth(300)
 
@@ -145,7 +145,7 @@ class UpdatemerchantThreeFieldsDialog(QDialog):
 
     def reject(self):
         '''Handle the reject button click event.'''
-        print("Operation canceled.")
+        print(_("Operation canceled."))
         super().reject()
 
 
@@ -187,7 +187,7 @@ class UserWindow(QMainWindow):
     def user_shopping_cart_models(self):
         '''Set up index data model.'''
         self.user_shopping_cart_model = QStandardItemModel()
-        self.user_shopping_cart_model.setHorizontalHeaderLabels(['ProductId', 'Store Name', 'Product Name', 'Price', 'quantity', 'operate'])
+        self.user_shopping_cart_model.setHorizontalHeaderLabels([_('ProductId'), _('Store Name'), _('Product Name'), _('Price'), _('quantity'), _('operate')])
         self.user_shopping_cart.tableView.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.user_shopping_cart.tableView.verticalHeader().setVisible(False)
         self.user_shopping_cart.tableView.setModel(self.user_shopping_cart_model)
@@ -198,17 +198,17 @@ class UserWindow(QMainWindow):
     def index_model(self):
         '''Set up index data model.'''
         self.merchant_model = QStandardItemModel()
-        self.merchant_model.setHorizontalHeaderLabels(['Store Name', ])
+        self.merchant_model.setHorizontalHeaderLabels([_('Store Name'), ])
         self.index.tableView.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.index.tableView.verticalHeader().setVisible(False)
         self.index.tableView.setModel(self.merchant_model)
         self.index.tableView.setEditTriggers(QTableView.NoEditTriggers)
 
-        self.shangpin_model = QStandardItemModel()
-        self.shangpin_model.setHorizontalHeaderLabels(['id', 'Name', 'Price', 'quantity', 'description', 'Whether to purchase more'])
+        self.product_model = QStandardItemModel()
+        self.product_model.setHorizontalHeaderLabels([_('id'), _('Name'), _('Price'), _('quantity'), _('description'), _('Whether to purchase more')])
         self.index.tableView_2.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.index.tableView_2.verticalHeader().setVisible(False)
-        self.index.tableView_2.setModel(self.shangpin_model)
+        self.index.tableView_2.setModel(self.product_model)
         self.index.tableView_2.setEditTriggers(QTableView.NoEditTriggers)
         self.index.tableView_2.horizontalHeader().setSectionResizeMode(5, QHeaderView.Fixed)
         self.index.tableView_2.setColumnWidth(5, 60)
@@ -216,7 +216,7 @@ class UserWindow(QMainWindow):
     def merchant_index_models(self):
         '''Set up merchant index data model.'''
         self.merchant_shouye_model = QStandardItemModel()
-        self.merchant_shouye_model.setHorizontalHeaderLabels(['productId', 'Merchant name', 'Product name', 'Description', 'Price', 'Quantity', 'Replenishment', 'Delete'])
+        self.merchant_shouye_model.setHorizontalHeaderLabels([_('productId'), _('Merchant name'), _('Product name'), _('Description'), _('Price'), _('Quantity'), _('Replenishment'), _('Delete')])
         self.merchant_shouye.tableView.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.merchant_shouye.tableView.verticalHeader().setVisible(False)
         self.merchant_shouye.tableView.setModel(self.merchant_shouye_model)
@@ -300,7 +300,7 @@ class UserWindow(QMainWindow):
         msgBox.setText(msg)
         msgBox.addButton(QMessageBox.Yes)
         yes_button = msgBox.button(QMessageBox.Yes)
-        yes_button.setText('Cancel')
+        yes_button.setText(_('Cancel'))
         msgBox.exec_()
 
     def load_ui(self, path):

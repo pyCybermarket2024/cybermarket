@@ -5,14 +5,14 @@ from PyQt5.QtWidgets import QMessageBox, QInputDialog, QLineEdit
 from request import request, _async_request
 from ui import UserWindow, ThreeFieldsDialog, UpdatemerchantThreeFieldsDialog
 from threading import Thread as _async
-
+from lang import _
 
 class Script(UserWindow):
 
 
     def __init__(self):
         """Initialize the Script class."""
-        self.shangpin_data, self.user_shopping_cart_data = [], []
+        self.product_data, self.user_shopping_cart_data = [], []
         self.merchant_username = ''
         self.merchant_index_data = []
 
@@ -38,7 +38,7 @@ class Script(UserWindow):
         self.user_update.pushButton_2.clicked.connect(self.ritorno)  # Return to the home page
 
         self.merchant_shouye.tableView.clicked.connect(self.rimborso_o_cancellazione)  # Replenishment or deletion
-        self.merchant_shouye.pushButton_5.clicked.connect(self.create_shangpin)  # Create product
+        self.merchant_shouye.pushButton_5.clicked.connect(self.create_product)  # Create product
         self.merchant_shouye.pushButton_4.clicked.connect(self.codice_invito)  # Create invitation code
         self.merchant_shouye.pushButton_3.clicked.connect(self.login_out)  # Log out
         self.merchant_shouye.pushButton_2.clicked.connect(self.update_merchant_info)  # Update merchant information
@@ -95,7 +95,7 @@ class Script(UserWindow):
                 self.user_shopping_cart_model.setItem(row_index, col_index, item)
                 if col_index == 5:
                     item.setForeground(QColor(Qt.red))
-        self.user_shopping_cart.label.setText(f'Total amount: {request("CLIENT_GET_PRICE")[1]:.2f}')
+        self.user_shopping_cart.label.setText(_('Total amount:')+ "{:.2f}".format(request("CLIENT_GET_PRICE")[1]))
 
     def user_shopping_cart_task(self):
         """Navigate to the user's shopping cart."""
@@ -114,8 +114,8 @@ class Script(UserWindow):
         """Handle click events on the 'Add to cart' button."""
         row, col = index.row(), index.column()
         if col == 5:
-            product_id = self.shangpin_data[row][0]
-            text, okPressed = QInputDialog.getText(self, "Add to cart", "Please enter the quantity:", QLineEdit.Normal, "")
+            product_id = self.product_data[row][0]
+            text, okPressed = QInputDialog.getText(self, _("Add to cart"), _("Please enter the quantity:"), QLineEdit.Normal, "")
             if okPressed and text != '':
                 request('CLIENT_ADD_ITEM', product_id, text)
 
@@ -124,15 +124,15 @@ class Script(UserWindow):
         row, col = index.row(), index.column()
         value = index.data(Qt.DisplayRole)
         queryset = [i.tolist() for i in request('LIST_PRODUCT', value)[1].values]
-        queryset = list(map(lambda i: [i[0], i[2], f'{i[4]:.2f}', i[5], i[3], 'Add to cart'], queryset))
-        self.shangpin_data = queryset
+        queryset = list(map(lambda i: [i[0], i[2], f'{i[4]:.2f}', i[5], i[3], _('Add to cart')], queryset))
+        self.product_data = queryset
         for row_index, row_data in enumerate(queryset):
             for col_index, col_data in enumerate(row_data):
                 item = QStandardItem(str(col_data))
                 item.setTextAlignment(Qt.AlignCenter)
                 if col_index == 5:
                     item.setForeground(QColor(Qt.blue))
-                self.shangpin_model.setItem(row_index, col_index, item)
+                self.product_model.setItem(row_index, col_index, item)
 
     def user_register_task(self):
         """Process user registration."""
@@ -200,7 +200,7 @@ class Script(UserWindow):
         row, col = index.row(), index.column()
         if col == 6:
             product_id = self.merchant_index_data[row][0]
-            text, okPressed = QInputDialog.getText(self, "Replenishment", "Please enter the replenishment quantity:", QLineEdit.Normal, "")
+            text, okPressed = QInputDialog.getText(self, _("Replenishment"), _("Please enter the replenishment quantity:"), QLineEdit.Normal, "")
             if okPressed and text != '':
                 request('MERCHANT_RESTOCK_PRODUCT', product_id, text)
                 self.merchant_index_get_data()
@@ -210,13 +210,13 @@ class Script(UserWindow):
             request('MERCHANT_DEL_PRODUCT', product_id)
             self.merchant_index_get_data()
 
-    def create_shangpin(self):
+    def create_product(self):
         """Create a new product."""
         dialog = ThreeFieldsDialog(self)
-        dialog.valuesEntered.connect(self.__create_shangpin)
+        dialog.valuesEntered.connect(self.__create_product)
         dialog.exec_()
 
-    def __create_shangpin(self, value_a, value_b, value_c):
+    def __create_product(self, value_a, value_b, value_c):
         """Create a new product.
 
         Args:
@@ -236,7 +236,7 @@ class Script(UserWindow):
     def codice_invito(self):
         """Generate an invitation code for the merchant."""
         response = request('MERCHANT_CREATE_IVITATION')[1]
-        self.pop_frame(f'Your invitation code is: {response}')
+        self.pop_frame(_('Your invitation code is:')+ response)
 
     def update_merchant_info(self):
         """Update merchant information."""
