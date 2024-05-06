@@ -47,7 +47,7 @@
      </font>
     </property>
     <property name="text">
-     <string>个人信息</string>
+     <string>Personal Information</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -65,7 +65,7 @@
      </font>
     </property>
     <property name="text">
-     <string>账号:</string>
+     <string>Username:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -83,7 +83,7 @@
      </font>
     </property>
     <property name="text">
-     <string>密码:</string>
+     <string>Password:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -132,7 +132,7 @@
      <string notr="true">QPushButton { background-color:rgb(0, 170, 255); color:rgb(255, 255, 255); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>修 改</string>
+     <string>Revise</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_3">
@@ -163,7 +163,7 @@
      </font>
     </property>
     <property name="text">
-     <string>邮箱:</string>
+     <string>Email:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -186,7 +186,7 @@
      <string notr="true">QPushButton { background-color:rgb(255, 255, 255); color:rgb(0, 0, 0); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>返回</string>
+     <string>Back</string>
     </property>
    </widget>
   </widget>

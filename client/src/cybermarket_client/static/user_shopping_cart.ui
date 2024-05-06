@@ -71,7 +71,7 @@
      <string notr="true">QPushButton { background-color:rgb(0, 170, 0); color:rgb(255, 255, 255); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>购物车</string>
+     <string>shopping cart</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
@@ -94,7 +94,7 @@
      <string notr="true">QPushButton { background-color:rgb(255, 0, 0); color:rgb(255, 255, 255); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>退出登陆</string>
+     <string>Log out</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_4">
@@ -117,7 +117,7 @@
      <string notr="true">QPushButton { background-color:rgb(0, 170, 0); color:rgb(255, 255, 255); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>首页</string>
+     <string>Home</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -140,7 +140,7 @@
      <string notr="true">QPushButton { background-color:rgb(0, 170, 0); color:rgb(255, 255, 255); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>个人信息</string>
+     <string>personal information</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -160,7 +160,7 @@
      </font>
     </property>
     <property name="text">
-     <string>总金额:</string>
+     <string>total amount:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_5">
@@ -183,7 +183,7 @@
      <string notr="true">QPushButton { background-color:rgb(0, 170, 255); color:rgb(255, 255, 255); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>结账</string>
+     <string>Checkout</string>
     </property>
    </widget>
   </widget>

@@ -47,7 +47,7 @@
      </font>
     </property>
     <property name="text">
-     <string>用户注册</string>
+     <string>User registration</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -65,7 +65,7 @@
      </font>
     </property>
     <property name="text">
-     <string>账号:</string>
+     <string>Username:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -83,7 +83,7 @@
      </font>
     </property>
     <property name="text">
-     <string>密码:</string>
+     <string>Password:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -132,7 +132,7 @@
      <string notr="true">QPushButton { background-color:rgb(0, 170, 255); color:rgb(255, 255, 255); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>注 册</string>
+     <string>Register</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -148,7 +148,7 @@
      <string notr="true">QPushButton { background-color:rgb(255, 255, 255); color:rgb(255, 85, 0); border-radius: 2px; }</string>
     </property>
     <property name="text">
-     <string>我是商户</string>
+     <string>I am a merchant</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
@@ -164,7 +164,7 @@
      <string notr="true">QPushButton { background-color:rgb(255, 255, 255); color:rgb(0, 170, 255); border-radius: 2px; }</string>
     </property>
     <property name="text">
-     <string>去登陆</string>
+     <string>Go to login</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_3">
@@ -195,7 +195,7 @@
      </font>
     </property>
     <property name="text">
-     <string>邮箱:</string>
+     <string>Email:</string>
     </property>
    </widget>
   </widget>
