@@ -47,7 +47,7 @@
      </font>
     </property>
     <property name="text">
-     <string>商户注册</string>
+     <string>Merchant registration</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -65,7 +65,7 @@
      </font>
     </property>
     <property name="text">
-     <string>账号:</string>
+     <string>account:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -83,7 +83,7 @@
      </font>
     </property>
     <property name="text">
-     <string>店铺描述:</string>
+     <string>Store description:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -132,7 +132,7 @@
      <string notr="true">QPushButton { background-color:rgb(255, 170, 0); color:rgb(255, 255, 255); border-radius: 3px; }</string>
     </property>
     <property name="text">
-     <string>注 册</string>
+     <string>Register</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -148,7 +148,7 @@
      <string notr="true">QPushButton { background-color:rgb(255, 255, 255); color:rgb(255, 85, 0); border-radius: 2px; }</string>
     </property>
     <property name="text">
-     <string>我是用户</string>
+     <string>I am a user</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_3">
@@ -164,7 +164,7 @@
      <string notr="true">QPushButton { background-color:rgb(255, 255, 255); color:rgb(0, 170, 255); border-radius: 2px; }</string>
     </property>
     <property name="text">
-     <string>去登陆</string>
+     <string>Go to login</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_3">
@@ -195,7 +195,7 @@
      </font>
     </property>
     <property name="text">
-     <string>邮箱:</string>
+     <string>Email:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -213,7 +213,7 @@
      </font>
     </property>
     <property name="text">
-     <string>密码:</string>
+     <string>Password:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_4">
@@ -244,7 +244,7 @@
      </font>
     </property>
     <property name="text">
-     <string>邀请人:</string>
+     <string>Inviter:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_5">
@@ -288,7 +288,7 @@
      </font>
     </property>
     <property name="text">
-     <string>邀请码:</string>
+     <string>Invitation code:</string>
     </property>
    </widget>
   </widget>
