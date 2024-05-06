@@ -1,6 +1,6 @@
-"""This script is the main entry point for creating a fully functional marketplace interface. It is called by the main function and imports various UI files, static resources, and backend request functions to facilitate the creation of the marketplace interface."""
+"""Entrance to the interactive interface."""
 import os
-from lang import _
+from .lang import _
 BASE_DIR = os.path.dirname(__file__)
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 LOGO_PATH = os.path.join(STATIC_DIR, 'logo.png')

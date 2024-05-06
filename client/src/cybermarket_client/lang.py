@@ -20,6 +20,7 @@ LOCALES = {
 # Language setting
 lang = locale.setlocale(locale.LC_ALL, ("zh_CN", "UTF-8"))
 
+
 def _(text):
     """Call this function to obtain the language pack."""
     return LOCALES[locale.getlocale()].gettext(text)

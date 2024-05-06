@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-06 16:21+0300\n"
+"POT-Creation-Date: 2024-05-06 16:53+0300\n"
 "PO-Revision-Date: 2024-05-04 23:51+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -18,32 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: src/cybermarket_client/logic.py:98
-#, fuzzy
-msgid "Total amount:"
-msgstr "数量:"
-
-#: src/cybermarket_client/logic.py:118 src/cybermarket_client/logic.py:127
+#: src/cybermarket_client/logic.py:160 src/cybermarket_client/logic.py:172
 msgid "Add to cart"
 msgstr "添加至购物车"
 
-#: src/cybermarket_client/logic.py:118
+#: src/cybermarket_client/logic.py:160
 msgid "Please enter the quantity:"
 msgstr "请输入数量:"
 
-#: src/cybermarket_client/logic.py:203 src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/logic.py:258 src/cybermarket_client/ui.py:256
 msgid "Replenishment"
 msgstr "补货"
 
-#: src/cybermarket_client/logic.py:203
+#: src/cybermarket_client/logic.py:259
 msgid "Please enter the replenishment quantity:"
 msgstr "请输入补货数量:"
 
-#: src/cybermarket_client/logic.py:239
+#: src/cybermarket_client/logic.py:297
 msgid "Your invitation code is:"
 msgstr "您的邀请码为:"
 
-#: src/cybermarket_client/request.py:25 src/cybermarket_client/ui.py:303
+#: src/cybermarket_client/request.py:26 src/cybermarket_client/ui.py:356
 msgid "Cancel"
 msgstr "取消"
 
@@ -51,110 +46,110 @@ msgstr "取消"
 msgid "Cybermarket"
 msgstr "赛博超市"
 
-#: src/cybermarket_client/ui.py:38
+#: src/cybermarket_client/ui.py:41
 msgid "Product name:"
 msgstr "商品名称:"
 
-#: src/cybermarket_client/ui.py:39
+#: src/cybermarket_client/ui.py:42
 msgid "Amount:"
 msgstr "数量:"
 
-#: src/cybermarket_client/ui.py:40 src/cybermarket_client/ui.py:99
+#: src/cybermarket_client/ui.py:43 src/cybermarket_client/ui.py:109
 #, fuzzy
 msgid "Description:"
 msgstr "商店描述"
 
-#: src/cybermarket_client/ui.py:96
+#: src/cybermarket_client/ui.py:106
 #, fuzzy
 msgid "Username:"
 msgstr "用户名"
 
-#: src/cybermarket_client/ui.py:97
+#: src/cybermarket_client/ui.py:107
 #, fuzzy
 msgid "Password:"
 msgstr "密码"
 
-#: src/cybermarket_client/ui.py:98
+#: src/cybermarket_client/ui.py:108
 #, fuzzy
 msgid "Email:"
 msgstr "电子邮箱"
 
-#: src/cybermarket_client/ui.py:131
+#: src/cybermarket_client/ui.py:151
 #, fuzzy
 msgid "Update Information"
 msgstr "确认"
 
-#: src/cybermarket_client/ui.py:148
+#: src/cybermarket_client/ui.py:168
 msgid "Operation canceled."
 msgstr "操作已取消."
 
-#: src/cybermarket_client/ui.py:190
+#: src/cybermarket_client/ui.py:209
 msgid "ProductId"
 msgstr "商品ID"
 
-#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:201
+#: src/cybermarket_client/ui.py:209 src/cybermarket_client/ui.py:229
 #, fuzzy
 msgid "Store Name"
 msgstr "用户名"
 
-#: src/cybermarket_client/ui.py:190
+#: src/cybermarket_client/ui.py:209
 msgid "Product Name"
 msgstr "商品名称"
 
-#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:208
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:209 src/cybermarket_client/ui.py:239
+#: src/cybermarket_client/ui.py:256
 msgid "Price"
 msgstr "价值"
 
-#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:210 src/cybermarket_client/ui.py:239
 msgid "quantity"
 msgstr "数量"
 
-#: src/cybermarket_client/ui.py:190
+#: src/cybermarket_client/ui.py:210
 msgid "operate"
 msgstr "操作"
 
-#: src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:239
 msgid "id"
 msgstr "id"
 
-#: src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:239
 #, fuzzy
 msgid "Name"
 msgstr "用户名"
 
-#: src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:239
 #, fuzzy
 msgid "description"
 msgstr "商店描述"
 
-#: src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:240
 msgid "Whether to purchase more"
 msgstr "是否加购"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:255
 msgid "productId"
 msgstr "商品id"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:255
 #, fuzzy
 msgid "Merchant name"
 msgstr "商家登录"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:255
 msgid "Product name"
 msgstr "商品名称"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:256
 #, fuzzy
 msgid "Description"
 msgstr "商店描述"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:256
 msgid "Quantity"
 msgstr "数量"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:257
 msgid "Delete"
 msgstr "删除"
 
@@ -193,4 +188,7 @@ msgstr "删除"
 
 #~ msgid "Server Message"
 #~ msgstr "来自服务器的消息"
+
+#~ msgid "Total amount:"
+#~ msgstr "数量:"
 

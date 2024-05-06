@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-06 16:21+0300\n"
+"POT-Creation-Date: 2024-05-06 16:53+0300\n"
 "PO-Revision-Date: 2024-05-04 23:52+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
@@ -19,32 +19,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: src/cybermarket_client/logic.py:98
-#, fuzzy
-msgid "Total amount:"
-msgstr "Количество:"
-
-#: src/cybermarket_client/logic.py:118 src/cybermarket_client/logic.py:127
+#: src/cybermarket_client/logic.py:160 src/cybermarket_client/logic.py:172
 msgid "Add to cart"
 msgstr "Добавить в корзину"
 
-#: src/cybermarket_client/logic.py:118
+#: src/cybermarket_client/logic.py:160
 msgid "Please enter the quantity:"
 msgstr "Пожалуйста, введите количество:"
 
-#: src/cybermarket_client/logic.py:203 src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/logic.py:258 src/cybermarket_client/ui.py:256
 msgid "Replenishment"
 msgstr "Пополнение"
 
-#: src/cybermarket_client/logic.py:203
+#: src/cybermarket_client/logic.py:259
 msgid "Please enter the replenishment quantity:"
 msgstr "Введите сумму пополнения:"
 
-#: src/cybermarket_client/logic.py:239
+#: src/cybermarket_client/logic.py:297
 msgid "Your invitation code is:"
 msgstr "Ваш код приглашения:"
 
-#: src/cybermarket_client/request.py:25 src/cybermarket_client/ui.py:303
+#: src/cybermarket_client/request.py:26 src/cybermarket_client/ui.py:356
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -52,110 +47,110 @@ msgstr "Отмена"
 msgid "Cybermarket"
 msgstr "Кибермаркет"
 
-#: src/cybermarket_client/ui.py:38
+#: src/cybermarket_client/ui.py:41
 msgid "Product name:"
 msgstr "Наименование товара:"
 
-#: src/cybermarket_client/ui.py:39
+#: src/cybermarket_client/ui.py:42
 msgid "Amount:"
 msgstr "Количество:"
 
-#: src/cybermarket_client/ui.py:40 src/cybermarket_client/ui.py:99
+#: src/cybermarket_client/ui.py:43 src/cybermarket_client/ui.py:109
 #, fuzzy
 msgid "Description:"
 msgstr "Описание магазина"
 
-#: src/cybermarket_client/ui.py:96
+#: src/cybermarket_client/ui.py:106
 #, fuzzy
 msgid "Username:"
 msgstr "логин пользователя"
 
-#: src/cybermarket_client/ui.py:97
+#: src/cybermarket_client/ui.py:107
 #, fuzzy
 msgid "Password:"
 msgstr "Пароль"
 
-#: src/cybermarket_client/ui.py:98
+#: src/cybermarket_client/ui.py:108
 #, fuzzy
 msgid "Email:"
 msgstr "Электронная почта"
 
-#: src/cybermarket_client/ui.py:131
+#: src/cybermarket_client/ui.py:151
 #, fuzzy
 msgid "Update Information"
 msgstr "Подтверждение"
 
-#: src/cybermarket_client/ui.py:148
+#: src/cybermarket_client/ui.py:168
 msgid "Operation canceled."
 msgstr "Операция отменена"
 
-#: src/cybermarket_client/ui.py:190
+#: src/cybermarket_client/ui.py:209
 msgid "ProductId"
 msgstr "Идантификационный номер продукта"
 
-#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:201
+#: src/cybermarket_client/ui.py:209 src/cybermarket_client/ui.py:229
 #, fuzzy
 msgid "Store Name"
 msgstr "логин пользователя"
 
-#: src/cybermarket_client/ui.py:190
+#: src/cybermarket_client/ui.py:209
 msgid "Product Name"
 msgstr "наименование товара"
 
-#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:208
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:209 src/cybermarket_client/ui.py:239
+#: src/cybermarket_client/ui.py:256
 msgid "Price"
 msgstr "Цена"
 
-#: src/cybermarket_client/ui.py:190 src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:210 src/cybermarket_client/ui.py:239
 msgid "quantity"
 msgstr "количество"
 
-#: src/cybermarket_client/ui.py:190
+#: src/cybermarket_client/ui.py:210
 msgid "operate"
 msgstr "действовать"
 
-#: src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:239
 msgid "id"
 msgstr "id"
 
-#: src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:239
 #, fuzzy
 msgid "Name"
 msgstr "логин пользователя"
 
-#: src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:239
 #, fuzzy
 msgid "description"
 msgstr "Описание магазина"
 
-#: src/cybermarket_client/ui.py:208
+#: src/cybermarket_client/ui.py:240
 msgid "Whether to purchase more"
 msgstr "Стоит ли покупать больше"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:255
 msgid "productId"
 msgstr "Код товара"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:255
 #, fuzzy
 msgid "Merchant name"
 msgstr "Вход продавцов"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:255
 msgid "Product name"
 msgstr "Наименование товара"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:256
 #, fuzzy
 msgid "Description"
 msgstr "Описание магазина"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:256
 msgid "Quantity"
 msgstr "Количество"
 
-#: src/cybermarket_client/ui.py:219
+#: src/cybermarket_client/ui.py:257
 msgid "Delete"
 msgstr "Удалить"
 
@@ -194,4 +189,7 @@ msgstr "Удалить"
 
 #~ msgid "Server Message"
 #~ msgstr "Сообщение сервера"
+
+#~ msgid "Total amount:"
+#~ msgstr "Количество:"
 

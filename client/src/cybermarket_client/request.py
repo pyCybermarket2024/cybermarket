@@ -1,12 +1,14 @@
+"""Function that interact with the server."""
 import socket
 import pickle
 import time
 from PyQt5.QtWidgets import QMessageBox
 from loguru import logger
 from threading import Thread as AsyncThread
-from settings import TITLE, SERVER_HOST, SERVER_PORT
-from ui import CustomMessageBox
-from lang import _
+from .settings import TITLE, SERVER_HOST, SERVER_PORT
+from .ui import CustomMessageBox
+from .lang import _
+
 
 def pop_frame(msg):
     """Display a frame with a message.
@@ -23,7 +25,7 @@ def pop_frame(msg):
     msg_box.addButton(QMessageBox.Yes)
     yes_button = msg_box.button(QMessageBox.Yes)
     yes_button.setText(_('Cancel'))
-    msg_box.exec_() 
+    msg_box.exec_()
 
 
 def request(cmd, *args, **kwargs):
@@ -33,7 +35,7 @@ def request(cmd, *args, **kwargs):
         cmd (str): The command to send to the server.
         *args: Additional arguments to include in the request.
         **kwargs: Additional keyword arguments:
-            - pop_frame (bool): Whether to display a frame with the response message.
+            - pop_frame (bool): Whether to display a frame with messages.
 
     Returns:
         str: The response from the server.
@@ -70,4 +72,5 @@ def _async_request(cmd, *args, pop_frame=False):
     Returns:
         None
     """
-    AsyncThread(target=request, args=(cmd, *args), kwargs={'pop_frame': pop_frame}).start()
+    AsyncThread(target=request, args=(cmd, *args),
+                kwargs={'pop_frame': pop_frame}).start()
